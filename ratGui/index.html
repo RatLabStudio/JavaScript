@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rat Lab Desktop</title>
+    <link rel="icon" href="../../resources\media\favicon.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="desktop" id="desktop">
+        <div class="iconGrid">
+        </div>
+    </div>
+
+    <div class="startMenu" id="startMenu" style="display: none;">
+        <h1 style="margin-left: 20px; margin-bottom: 3px;">Rat Lab Desktop!</h1>
+        <p style="margin-left: 25px; margin-right: 25px;">Welcome to the Rat Lab Desktop, your launchpad for all sorts
+            of projects and resources!</p>
+        <br>
+        <h3 style="margin-left: 20px; margin-bottom: 0px;">Apps:</h3>
+        <div class="iconGrid"></div>
+    </div>
+
+    <div class="taskView" id="taskView" style="display: none;">
+        <h1 style="margin-left: 20px;">Task View</h1>
+        <h3 style="margin-left: 20px;">Open Tasks:</h3>
+        <table id="taskViewTable" class="taskViewTable"></table>
+    </div>
+
+    <div class="taskBar" id="taskBar">
+        <div id="taskBarIcons">
+            <img class="icon" src="assets/icons/ratIcon.png" onclick="toggleElement('startMenu')"
+                style="width: 38px; margin: 7px;">
+            <img class="icon" src="assets/icons/taskView.png" onclick="toggleElement('taskView')">
+        </div>
+        <div class="dateTimePanel">
+            <p id="date">5/18/23</p>
+            <p id="time">11:25 AM</p>
+        </div>
+    </div>
+
+    <div id="windows"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

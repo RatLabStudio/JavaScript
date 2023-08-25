@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="../../resources\media\favicon.png">
+    <link rel="stylesheet" href="styles.css">
+    <title>Endian</title>
+    <!-- Scripts are imported from https://unpkg.com/ -->
+    <script type="importmap">
+        {
+            "imports": {
+                "cannon-es": "https://unpkg.com/cannon-es@0.20.0/dist/cannon-es.js",
+                "cannon-es-debugger" : "https://unpkg.com/cannon-es-debugger@1.0.0/dist/cannon-es-debugger.js",
+                "three": "https://unpkg.com/three@0.138.0/build/three.module.js",
+                "lock": "https://unpkg.com/pointer-lock@0.0.4/index.js",
+                "PointerLockControls": "https://unpkg.com/three@0.138.0/examples/jsm/controls/PointerLockControls.js",
+                "GLTFLoader": "https://unpkg.com/three@0.138.0/examples/jsm/loaders/GLTFLoader.js",
+                "CSS3DRenderer": "https://unpkg.com/three@0.138.0/examples/jsm/renderers/CSS3DRenderer.js"
+            }
+        }
+    </script>
+    <script src="vcpu.js" type="module"></script>
+</head>
+
+<body>
+    <div class="overlay topLeft">
+        <h3 class="text" style="color: aqua;">Project Endian Alpha 0.1.4 Preview</h3>
+        <h4 class="text">Copyright RatLab 2023</h4>
+        <h5 class="text">Debug Mode Enabled</h5>
+    </div>
+    <div class="overlay topRight">
+        <h3 id='XYZ' class="text" style="color: lime; cursor: pointer;">XYZ: ()</h3>
+    </div>
+    <img class="crosshair overlay" src="assets/textures/crosshair.png">
+    <img class="gun overlay" src="assets/textures/gun.png">
+    <div id="settings" class="popup" style="display: none;">
+        <h1 style="margin: 10px; color: lime;">Settings</h1>
+        <button class="exitButton" onclick="togglePopup('settings')">X</button>
+        <br>
+        <h2 id="fovLabel" style="margin: 10px;">FOV: 75</h2>
+        <input id="fovSlider" class="slider" type="range" min="20" max="120" value="75">
+        <br><br>
+        <h2 id="cameraSensitivityLabel" style="margin: 10px;">Camera Sensitivity: Default</h2>
+        <input id="cameraSensitivitySlider" class="slider" type="range" min="0" max="20" value="2">
+    </div>
+    <div id="container">
+        <div id="hud"></div>
+        <div id="css3d"></div>
+        <div id="webgl"></div>
+    </div>
+    <canvas id="VisualCPU" style="display: none;"></canvas>
+    <script src="script.js" type="module"></script>
+</body>
+
+</html>

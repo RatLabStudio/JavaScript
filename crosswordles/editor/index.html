@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<style>
+    body {
+        text-align: center;
+        font-family: sans-serif;
+        background-color: skyblue;
+    }
+
+    .btn {
+        font-size: 32px;
+        background-color: aliceblue;
+    }
+
+    button {
+        width: 134px;
+        height: 50px;
+        font-size: 18px;
+        border-radius: 5px;
+        border-width: 0px;
+        margin: 1px;
+        background-color: greenyellow;
+    }
+
+    button:hover {
+        filter: brightness(90%);
+    }
+
+    textarea {
+        border-radius: 5px;
+        width: 100px;
+        height: 35px;
+    }
+
+    table {
+        background-color: aliceblue;
+        display: flex;
+    }
+
+    #changeSize {
+        background-color: rgb(150, 230, 30);
+    }
+
+    h4 {
+        font-size: 20px;
+        margin-bottom: 5px;
+        margin-right: 10px;
+        margin-top: 10px;
+    }
+
+    .nextTo {
+        display: flex;
+    }
+</style>
+<html lang="en">
+
+<head>
+    <title>Cross Wordle Puzzle Creator</title>
+    <link rel="icon" href="../../resources\media\favicon.png">
+</head>
+
+<body>
+    <h1>Cross Wordle Puzzle Creator</h1>
+    <p>The first WordID should be 1, put a dash between word IDs if the letter is in multiple words, put a 0 to
+        reset it
+    </p>
+    <div class="subHead">
+        <div class="nextTo" style="float: left; margin-left: 30%;">
+            <table>
+                <tr>
+                    <th>Size</th>
+                    <td id="size"></td>
+                </tr>
+                <tr>
+                    <th>Words</th>
+                    <td id="words"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="nextTo" style="float: right; margin-right: 30%;">
+            <h4>Word ID:</h4>
+            <textarea id="wordID" rows="1" style="font-size: 24px;"></textarea>
+        </div>
+    </div>
+    <br><br><br><br>
+    <div id="canvas"></div>
+    <br>
+    <button onclick="Save()">Save</button>
+    <button onclick="Load(prompt('Input Data Here:'))">Load</button>
+    <!--<button id="changeSize" onclick="ChangeSize(prompt('What size board do you want?'))">Change Size</button>
+        <p>WARNING: Changing the size only goes upwards, and will cause errors</p>/-->
+</body>
+<script src="program.js"></script>
+
+</html>

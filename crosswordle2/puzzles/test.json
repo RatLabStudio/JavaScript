@@ -1,0 +1,26 @@
+{
+    "size": 10,
+    "words": [
+        {
+            "id": "0",
+            "location": "1,1",
+            "direction": "horizontal",
+            "word": "PROGRAM",
+            "attempts": []
+        },
+        {
+            "id": "1",
+            "location": "1,2",
+            "direction": "vertical",
+            "word": "RANDOM",
+            "attempts": []
+        },
+        {
+            "id": "2",
+            "location": "4,2",
+            "direction": "horizontal",
+            "word": "DOMAIN",
+            "attempts": []
+        }
+    ]
+}

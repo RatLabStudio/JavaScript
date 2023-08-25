@@ -1,0 +1,339 @@
+html {
+    background-color: darkslategray;
+    color: aliceblue;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin: 0px;
+    text-align: center;
+}
+
+h1 {
+    margin: 0px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+
+    text-decoration: underline;
+}
+
+h2 {
+    margin: 0px;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+a {
+    text-decoration: none;
+    color: greenyellow;
+}
+
+a:hover {
+    filter: brightness(120%);
+}
+
+td {
+    font-size: 35px;
+    padding: 12px;
+    width: 40px;
+    height: 40px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.40);
+    border-width: 3px;
+    border-radius: 10px;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+}
+
+.blankTile {
+    background-color: rgb(185, 185, 185);
+}
+
+#wordle {
+    margin: auto;
+    display: absolute;
+    left: 0;
+    background-color: red;
+}
+
+#wordleTopRow {
+    background-color: rgba(240, 248, 255, 0.568);
+}
+
+button {
+    font-size: 24px;
+    font-weight: 600;
+    padding: 10px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.40);
+    border-width: 3px;
+    border-radius: 10px;
+    background-color: lightseagreen;
+    cursor: pointer;
+}
+
+button:hover {
+    filter: brightness(130%);
+}
+
+.popup {
+    background: darkslateblue;
+    padding: 5px;
+    border-radius: 10px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black;
+    position: fixed;
+    width: 30%;
+    height: 60%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9;
+    font-size: 20px;
+}
+
+.popup h3 {
+    font-size: 32px;
+}
+
+.menu button {
+    margin-top: 5px;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.exitButton {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 4px;
+    float: right;
+    margin: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+    background-color: tomato;
+    cursor: pointer;
+}
+
+.devButton {
+    font-size: 18px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+#leaderboardsTable {
+    font-size: 20px;
+    border-style: none;
+    padding: 8px;
+    margin: 0px;
+    width: 100%;
+}
+
+.popup td {
+    background-color: darkslategray;
+    border-radius: 5px;
+}
+
+.popup th {
+    font-weight: bolder;
+    font-size: 24px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0px;
+    background-color: lightslategray;
+    border-radius: 5px;
+    padding: 8px;
+    color: black;
+}
+
+#leaderboardsTable th {
+    border-width: 5px;
+    border-color: rgb(7, 41, 39);
+    background-color: lightseagreen;
+}
+
+#leaderboardsTable td {
+    border-style: solid;
+    color: aliceblue;
+    background-color: darkslategray;
+    border-width: 5px;
+    padding: 5px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.alert {
+    width: 200px;
+    height: 50px;
+    top: 40%;
+    left: 50%;
+    margin-top: -300px;
+    margin-left: -100px;
+    padding: 5px;
+    animation: alert 3s ease-in;
+    filter: opacity(0%);
+}
+
+.alert h2 {
+    font-size: 24px;
+}
+
+@keyframes alert {
+    0% {
+        filter: opacity(0%);
+    }
+
+    10% {
+        filter: opacity(100%);
+    }
+
+    80% {
+        filter: opacity(0%);
+    }
+
+    100% {
+        display: none;
+    }
+}
+
+.key {
+    background-color: lightgray;
+    width: 60px;
+    height: 70px;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 1px;
+}
+
+.specialKey {
+    width: 90px;
+}
+
+input::file-selector-button {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 5px 12px;
+    margin-left: 0px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.40);
+    border-width: 2px;
+    border-radius: 10px;
+    background-color: lightseagreen;
+    cursor: pointer;
+}
+
+input::file-selector-button:hover {
+    filter: brightness(130%);
+}
+
+@keyframes shake {
+
+    /*style.animation = "shake .8s ease-in"*/
+    0% {
+        transform: translate(0);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translate(.8em);
+        box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    10%,
+    30%,
+    50% {
+        transform: translate(-.2em);
+    }
+
+    70%,
+    100% {
+        transform: translate(0);
+    }
+}
+
+@keyframes flip {
+
+    /*style.animation = "flip 500ms ease forwards"*/
+    0% {
+        transform: scaleY(1);
+    }
+
+    50% {
+        background: white;
+        transform: scaleY(0);
+    }
+
+    100% {
+        transform: scaleY(1);
+    }
+}
+
+/* Customize the label (the container) */
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked~.checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked~.checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}

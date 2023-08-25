@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Crafting Tool</title>
+    <link rel="icon" href="../../resources\media\favicon.png">
+
+    <style>
+        html {
+            background-color: darkslategray;
+            color: aliceblue;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            text-align: center;
+        }
+
+        .tileGrid {
+            margin: auto;
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            grid-template-rows: 500px;
+        }
+
+        .gameTile {
+            background-color: rgba(240, 248, 255, 0.1);
+            cursor: pointer;
+            width: 25em;
+            height: 25em;
+            text-align: left;
+            padding: 3%;
+            border: solid 1px aliceblue;
+            border-radius: 10px;
+            margin: auto;
+        }
+
+        .gameTile:hover {
+            filter: brightness(120%);
+        }
+
+        .gameTile img {
+            width: 80%;
+        }
+
+        .gameTile h2,
+        .gameTile p {
+            margin: 5px;
+        }
+
+        li {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        li:hover {
+            color: lightgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-decoration: underline;">Crafting Tool</h1>
+    <div id="gameList" style="display: inline;">
+        <h2>Select a Game:</h2>
+        <div class="tileGrid">
+            <div class="gameTile" id="minecraft">
+                <img src="https://ratlab.one/wp-content/uploads/2023/02/endianThreeTile.png">
+                <h2>Minecraft</h2>
+                <p>A block game</p>
+            </div>
+        </div>
+    </div>
+    <div id="itemList" style="display: none;">
+        <h2>Item List:</h2>
+        <input type="text" placeholder="Search items...">
+        <ul id="items"></ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

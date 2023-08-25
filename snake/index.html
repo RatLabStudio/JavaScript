@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<style>
+    html {
+        font-family: sans-serif;
+        background-color: darkslategray;
+        text-align: center;
+        color: aliceblue;
+    }
+
+    canvas {
+        background-color: black;
+        text-align: center;
+        margin-right: auto;
+        margin-left: auto;
+        border: solid 2px darkviolet;
+        border-radius: 10px;
+    }
+
+    h2 {
+        font-size: 28px;
+        /*color: black;*/
+        margin-top: 2px;
+        margin-bottom: 2px;
+    }
+
+    a {
+        text-decoration: none;
+        color: aliceblue;
+        -webkit-text-stroke-width: 0.5px;
+        -webkit-text-stroke-color: aliceblue;
+    }
+
+    .header {
+        background-color: darkviolet;
+        margin-bottom: 16px;
+        padding: 5px;
+        border: solid 2px aliceblue;
+        border-radius: 10px;
+    }
+
+    button {
+        width: 150px;
+        height: 75px;
+        font-size: 24px;
+        border-width: 0px;
+        border-radius: 10px;
+        background-color: darkseagreen;
+        color: black;
+    }
+
+    button:hover {
+        filter: brightness(108%);
+    }
+
+    .dpadDiv {
+        text-align: center;
+    }
+
+    .dpad {
+        width: 80px;
+        height: 80px;
+        padding: 15px;
+        border-width: 0px;
+        border-radius: 10px;
+        font-size: 42px;
+        background-color: darkmagenta;
+        color: black;
+        cursor: pointer;
+        border: solid 1px aliceblue;
+        border-radius: 10px;
+    }
+
+    .dpad:active {
+        filter: brightness(90%);
+    }
+</style>
+
+<meta name="viewport" content="width=device-width, user-scalable=no">
+
+<head>
+    <title>Snake</title>
+    <link rel="icon" href="https://ratlab.one/wp-content/uploads/2022/09/icon.png">
+</head>
+
+<body>
+    <div class="header">
+        <h2 style="float: left; margin-left: 10%;"><a href="https://ratlab.one">Rat Lab</a></h2>
+        <h2 style="float: right; margin-right: 10%;">Snake</h2>
+        <br><br>
+    </div>
+    <canvas id="canvas" height="728" width="728"></canvas>
+    <br><br>
+    <h2 id="scoreCounter" style="float: left;">Score: 0</h2>
+    <h2 id='highScore' style="float: right;">High Score: 0</h2>
+    <br><br><br>
+    <div class="dpadDiv">
+        <button class="dpad" id="up" onclick="up()">
+            <span style="color: aliceblue; display: inline-block;">△</span>
+        </button>
+        <br>
+        <button class="dpad" id="left" onclick="left()">
+            <span style="color: aliceblue; display: inline-block; transform: rotate(-90deg);">△</span>
+        </button>
+        <button class="dpad" style="visibility: hidden;"></button>
+        <button class="dpad" id="right" onclick="right()">
+            <span style="color: aliceblue; display: inline-block; transform: rotate(90deg);">△</span>
+        </button>
+        <br>
+        <button class="dpad" id="down" onclick="down()">
+            <span style="color: aliceblue; display: inline-block; transform: rotate(180deg);">△</span>
+        </button>
+    </div>
+    <br><br>
+    <button id='boundless' onclick="modeSelect('boundless')">Boundless Mode</button>
+    <button id="resetHighScore" onclick="resetHighScore()">Reset High Score</button>
+    <script src="snake.js"></script>
+</body>
+
+</html>

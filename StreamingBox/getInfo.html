@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <title>Salverio Login Info</title>
+</head>
+
+<body>
+    <h1>Login Information</h1>
+    <h2>Click on an email or password to copy it</h2>
+
+    <div class="tileContainer">
+        <div class="tile" style="height: 370px;">
+            <img src="media/youtube.png">
+            <h2 class="tileText tileTitle">YouTube</h2>
+            <h3 class="tileText tileSubtitle">Email: <span class="copy">salverio@gmail.com</span></h3>
+            <h3 class="tileText tileSubtitle">Password: <span class="copy">Fairway1728</span></h3>
+        </div>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="tileContainer">
+        <a href="index.html">
+            <div class="tile" style="height: 40px;">
+                <h2 class="tileText tileTitle">Back to Home</h2>
+            </div>
+        </a>
+    </div>
+
+    <script>
+        var copyables = document.getElementsByClassName('copy');
+        for (var i = 0; i < copyables.length; i++) {
+            copyables[i].addEventListener("mousedown", function (event) {
+                navigator.clipboard.writeText(event.target.innerHTML);
+            });
+        }
+    </script>
+</body>
+
+</html>

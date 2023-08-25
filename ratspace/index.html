@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="../../resources\media\favicon.png">
+    <title>Rat Space</title>
+
+    <style>
+        html {
+            background-color: gray;
+        }
+    </style>
+
+    <!-- Scripts are imported from https://unpkg.com/ -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.138.0/build/three.module.js",
+                "lock": "https://unpkg.com/pointer-lock@0.0.4/index.js",
+                "PointerLockControls": "https://unpkg.com/three@0.138.0/examples/jsm/controls/PointerLockControls.js",
+                "GLTFLoader": "https://unpkg.com/three@0.138.0/examples/jsm/loaders/GLTFLoader.js",
+                "CSS3DRenderer": "https://unpkg.com/three@0.138.0/examples/jsm/renderers/CSS3DRenderer.js"
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="container">
+        <div id="hud"></div>
+        <div id="webgl"></div>
+    </div>
+    <script src="script.ts"></script>
+</body>
+
+</html>

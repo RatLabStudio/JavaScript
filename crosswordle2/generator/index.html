@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CrossWordle Generator</title>
+    <link rel="icon" href="https://ratlab.one/wp-content/uploads/2022/09/icon.png">
+    <link rel="stylesheet" href="../styles.css">
+
+    <style>
+        .menu {
+            position: absolute;
+            left: 30px;
+            top: 30px;
+            background-color: darkslateblue;
+            padding: 20px;
+            border-style: solid;
+            border-color: black;
+            border-width: 5px;
+            border-radius: 20px;
+        }
+
+        input {
+            font-size: 16px;
+            border-style: none;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        td:hover {
+            filter: brightness(120%);
+            border-color: darkslateblue;
+        }
+
+        p {
+            margin: 2px;
+        }
+
+        #direction {
+            cursor: pointer;
+            background-color: slateblue;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        #direction:hover {
+            filter: brightness(110%);
+        }
+
+        #addWord {
+            top: 30px;
+            right: 30px;
+            width: 15%;
+            height: 40%;
+        }
+
+        #removeWord {
+            bottom: 30px;
+            right: 30px;
+            width: 15%;
+            height: 40%;
+        }
+
+        .panel {
+            background: darkslateblue;
+            padding: 5px;
+            border-radius: 10px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: black;
+            position: fixed;
+            z-index: 9;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Cross Wordle Generator</h1>
+
+    <table style="margin: auto;">
+        <tbody id="mainTable" style="display: inline;"></tbody>
+    </table>
+
+    <br><br>
+    <ul id="list" style="width: 10%; margin: auto;"></ul>
+
+    <div id="menu" class="menu">
+        <h1 style="margin-top: 0px; margin-bottom: 10px;">Menu</h1>
+        <!--<button onclick="togglePopup('loadPuzzle')">Load Puzzle</button>-->
+        <br>
+        <button onclick="save()">Save Puzzle</button>
+    </div>
+
+    <h3 style="position: absolute; bottom: 10px; left: 10px; margin: 0;">Matteo Salverio -
+        FBLA 2023</h3>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

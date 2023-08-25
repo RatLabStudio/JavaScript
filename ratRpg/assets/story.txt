@@ -1,0 +1,30 @@
+Rat Lab RPG Story:
+
+This game is designed for the FBLA 2023-2024 Computer Game and Simulation Programming addEventListener
+The prompt is as follows:
+
+Create an adventure game with a storyline. The game must:
+    • Be playable on the student device using Windows 10, Mac OS, or a modern web browser.
+    • Be compatible with a maximum ESRB rating of E10+.
+    • Be secure and bug-free.
+    • Include:
+        o A hero that is a FBLA member.
+        o At least one villain.
+        o Storyline incorporating FBLA goals, concepts, and/or history.
+        o Use of arrow keys for movement and can incorporate other keys for other actions.
+        o Scoring.
+        o Win/lose screens.
+        o At least two levels of play
+
+Characters:
+    Player: FBLA student
+    Villan: Evil FBLA member
+    Enemies: Other FBLA students
+
+Features:
+    PLEASE PLEASE PLEASE add pins OMGGGG
+    Maybe a Rat Lab reference in there somewhere
+    Textboxes
+
+Storyline:
+    

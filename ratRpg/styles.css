@@ -1,0 +1,23 @@
+html {
+    height: 100%;
+    color: aliceblue;
+    background: linear-gradient(to bottom right, rgb(45, 67, 67), rgb(11, 113, 113));
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+canvas {
+    background-color: black;
+    border-style: solid;
+    border-color: aliceblue;
+    border-width: 2px;
+    border-radius: 10px;
+}
+
+h1 {
+    margin-bottom: 0px;
+}
+
+p {
+    margin-top: 2px;
+}

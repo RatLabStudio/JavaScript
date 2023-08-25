@@ -1,0 +1,242 @@
+html {
+    height: 100%;
+    background-color: black;
+    color: white;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+body {
+    /* Disables scrolling on the desktop */
+    overflow: hidden;
+}
+
+.prevent-select {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.taskBar {
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.taskBar img {
+    width: 45px;
+    margin: 3px;
+}
+
+.desktop {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url(assets/wallpaper/RatLabWallpaper.png);
+    background-size: cover;
+}
+
+.iconGrid {
+    display: grid;
+    grid-template-rows: 72px 72px 72px;
+    grid-template-columns: 72px 72px 72px 72px 72px 72px;
+}
+
+.icon {
+    width: 64px;
+    margin: 20px;
+    border: solid 0px black;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(24, 24, 24, 0.4);
+}
+
+.icon:hover {
+    filter: brightness(115%);
+}
+
+.icon:active {
+    filter: brightness(130%);
+}
+
+.startMenu {
+    position: absolute;
+    bottom: 55px;
+    left: 5px;
+    width: 30%;
+    height: 50%;
+    background-color: rgba(0, 0, 0, 0.9);
+    border: solid 0px black;
+    border-radius: 10px;
+    z-index: 10;
+    animation: slideUp 0.2s linear;
+    transition: .3s ease-in-out;
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(1000px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        filter: opacity(0%);
+        width: 20%;
+        height: 20%;
+    }
+
+    100% {
+        filter: opacity(100%);
+        width: 70%;
+        height: 70%;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        filter: opacity(100%);
+        width: 70%;
+        height: 70%;
+    }
+
+    100% {
+        filter: opacity(0%);
+        width: 20%;
+        height: 20%;
+    }
+}
+
+.taskView {
+    position: absolute;
+    bottom: 55px;
+    right: 5px;
+    width: 30%;
+    height: 50%;
+    background-color: rgba(0, 0, 0, 0.9);
+    border: solid 0px black;
+    border-radius: 10px;
+    z-index: 10;
+}
+
+.taskViewTable {
+    margin-left: 20px;
+}
+
+.taskViewTable th {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 5px;
+}
+
+.taskViewTable td {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 5px;
+}
+
+.taskButton {
+    text-align: center;
+    cursor: pointer;
+}
+
+.taskButton:hover {
+    text-align: center;
+    cursor: pointer;
+}
+
+.dateTimePanel {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    padding: 5px;
+    background-color: rgba(240, 248, 255, 0.078);
+    height: 40px;
+    width: 80px;
+    cursor: pointer;
+}
+
+.dateTimePanel p {
+    margin: 1px;
+}
+
+.window {
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 70%;
+    background-color: rgba(0, 0, 0, 0.15);
+    border: solid 0px black;
+    border-radius: 15px;
+    animation: fadeIn 0.05s linear;
+    transition: 0.1s ease-in-out;
+}
+
+.controls {
+    position: absolute;
+    margin: 0;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 30px;
+    border: solid 0px black;
+    border-radius: 15px 15px 0px 0px;
+    cursor: pointer;
+}
+
+.controlBtns {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-45%);
+    left: 10px;
+}
+
+.controlsBtn {
+    width: 20px;
+    height: 20px;
+    margin: 0px;
+    margin-right: 5px;
+    padding: 0px;
+    border: solid 0px black;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.controlsBtn:hover {
+    filter: brightness(115%);
+}
+
+.controlsBtn:active {
+    filter: brightness(130%);
+}
+
+.minMaxBtn {
+    background-color: lightgreen;
+}
+
+.closeBtn {
+    background-color: tomato;
+}
+
+.windowFrame {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    border: solid 0px black;
+    border-radius: 0px 0px 15px 15px;
+}

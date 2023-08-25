@@ -1,0 +1,19 @@
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: rgb(0, 7, 0);
+    color: limegreen;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+canvas {
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: scroll;
+}

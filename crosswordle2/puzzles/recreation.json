@@ -1,0 +1,45 @@
+{
+    "size": 10,
+    "words": [
+        {
+            "id": "0",
+            "location": "2,1",
+            "direction": "horizontal",
+            "word": "PROGRAM",
+            "attempts": [],
+            "hint": "Another word  for code"
+        },
+        {
+            "id": "1",
+            "location": "1,3",
+            "direction": "vertical",
+            "word": "CONSTANT",
+            "attempts": [],
+            "hint": "Never changing"
+        },
+        {
+            "id": "2",
+            "location": "2,5",
+            "direction": "vertical",
+            "word": "RANDOM",
+            "attempts": [],
+            "hint": "Does not obey a pattern"
+        },
+        {
+            "id": "3",
+            "location": "5,1",
+            "direction": "horizontal",
+            "word": "DATED",
+            "attempts": [],
+            "hint": "Another word for old"
+        },
+        {
+            "id": "4",
+            "location": "7,3",
+            "direction": "horizontal",
+            "word": "NAME",
+            "attempts": [],
+            "hint": "A type of identifier"
+        }
+    ]
+}

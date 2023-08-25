@@ -1,0 +1,52 @@
+{
+    "items": {
+        "diamond_sword": {
+            "name": "diamond_sword",
+            "recipe": [
+                {
+                    "item": "diamond",
+                    "amount": 2
+                },
+                {
+                    "item": "stick",
+                    "amount": 1
+                }
+            ]
+        },
+        "iron_pickaxe": {
+            "name": "iron_pickaxe",
+            "recipe": [
+                {
+                    "item": "iron_ingot",
+                    "amount": 3
+                },
+                {
+                    "item": "stick",
+                    "amount": 2
+                }
+            ]
+        },
+        "netherite_ingot": {
+            "name": "netherite_ingot",
+            "recipe": [
+                {
+                    "item": "netherite_scraps",
+                    "amount": 4
+                },
+                {
+                    "item": "gold_ingot",
+                    "amount": 4
+                }
+            ]
+        },
+        "netherite_block": {
+            "name": "netherite_block",
+            "recipe": [
+                {
+                    "item": "netherite_ingot",
+                    "amount": 9
+                }
+            ]
+        }
+    }
+}

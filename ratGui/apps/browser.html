@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Browser</title>
+    <style>
+        html {
+            margin: 0px;
+            background-color: rgba(32, 32, 32, 1);
+            color: aliceblue;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        body {
+            /* Disables scrolling on the desktop */
+            overflow: hidden;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        input {
+            font-size: 16px;
+            padding: 5px;
+            background-color: rgba(240, 248, 255, 0.15);
+            border: solid 0px aliceblue;
+            border-radius: 5px;
+            color: aliceblue;
+            width: 60%;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 5px;
+            background-color: rgba(240, 248, 255, 0.15);
+            border: solid 0px aliceblue;
+            border-radius: 5px;
+            color: aliceblue;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: rgba(240, 248, 255, 0.25);
+            filter: brightness(120%);
+        }
+
+        button:active {
+            background-color: rgba(240, 248, 255, 0.35);
+            filter: brightness(130%);
+        }
+
+        #frame {
+            position: absolute;
+            left: -2px;
+            top: 45px;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #home {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="ribbon">
+        <h3 style="display: inline-block; margin: 0; margin-right: 10px;">Rat Lab Browser</h3>
+        <input type="text" id="urlBar" value="https://" style="display: inline-block;">
+        <button onclick="search()" style="display: inline-block;">Enter</button>
+        <button style="float: right;" onclick="home()">Home</button>
+    </div>
+    <br>
+    <div id="home">
+        <h1>Rat Lab Desktop Browser <span style="font-size: 20px; font-weight: normal;">v1.2</span></h1>
+        <p>Note: Only works with some sites at the moment, it's a security issue.</p>
+        <h2>Favorites:</h2>
+        <button onclick="openLink('https:\/\/ratlab.one')">Rat Lab</button>
+        <button onclick="openLink('https:\/\/matteosalverio.github.io/ratlab')">Project Repo</button>
+        <button onclick="openLink('currentURL')">Current URL</button>
+        <button onclick="openLink('https:\/\/boredbutton.com')">Bored Button</button>
+    </div>
+    <iframe id="frame" style="display: none;" width="100%" height="100%" src=""></iframe>
+
+    <script>
+        const frame = document.getElementById("frame");
+        const urlBar = document.getElementById("urlBar");
+        urlBar.addEventListener("keydown", function (e) {
+            if (e.key == 'Enter') {
+                search();
+            }
+        });
+
+        function search() {
+            //window.open(urlBar.value, "_self");
+            if (urlBar.value == null || urlBar.value == "" || urlBar.value == "https://")
+                return;
+            frame.src = urlBar.value;
+            frame.style.display = "inline";
+        }
+
+        function openLink(url) {
+            if (url == 'currentURL') {
+                url = window.location.href.replace("apps/browser.html", "");
+            }
+            //window.open(url, "_self");
+            urlBar.value = url;
+            frame.src = url;
+            frame.style.display = "inline";
+        }
+
+        function home() {
+            frame.src = "";
+            frame.style.display = "none";
+            urlBar.value = "https://";
+        }
+    </script>
+</body>
+
+</html>

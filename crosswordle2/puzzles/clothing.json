@@ -1,0 +1,61 @@
+{
+    "size": 11,
+    "words": [
+        {
+            "id": 0,
+            "location": "1,3",
+            "direction": "horizontal",
+            "word": "JACKET",
+            "attempts": [],
+            "hint": "For colder weather"
+        },
+        {
+            "id": 1,
+            "location": "1,3",
+            "direction": "vertical",
+            "word": "JEANS",
+            "attempts": [],
+            "hint": "Legwear"
+        },
+        {
+            "id": 2,
+            "location": "3,1",
+            "direction": "horizontal",
+            "word": "FLANNEL",
+            "attempts": [],
+            "hint": "Stylish outer clothing"
+        },
+        {
+            "id": 3,
+            "location": "5,3",
+            "direction": "horizontal",
+            "word": "SHOES",
+            "attempts": [],
+            "hint": "For your feet"
+        },
+        {
+            "id": 4,
+            "location": "5,7",
+            "direction": "vertical",
+            "word": "SHIRT",
+            "attempts": [],
+            "hint": "Key part of an outfit"
+        },
+        {
+            "id": 5,
+            "location": "6,7",
+            "direction": "horizontal",
+            "word": "HAT",
+            "attempts": [],
+            "hint": "Wear this on your head"
+        },
+        {
+            "id": 6,
+            "location": "3,9",
+            "direction": "vertical",
+            "word": "PANTS",
+            "attempts": [],
+            "hint": "Wear these on your legs"
+        }
+    ]
+}

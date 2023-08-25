@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<style>
+    html {
+        font-family: sans-serif;
+        background-color: rgb(35, 30, 69);
+        text-align: center;
+        color: aliceblue;
+    }
+
+    canvas {
+        background-color: rgba(33, 0, 47, 0);
+        text-align: center;
+        margin-right: auto;
+        margin-left: auto;
+        border: solid 2px darkviolet;
+        border-radius: 10px;
+        padding: 3px;
+        width: 40%;
+        cursor: pointer;
+    }
+
+    h2 {
+        font-size: 28px;
+        /*color: black;*/
+        margin-top: 2px;
+        margin-bottom: 2px;
+    }
+
+    a {
+        text-decoration: none;
+        color: aliceblue;
+        -webkit-text-stroke-width: 0.5px;
+        -webkit-text-stroke-color: aliceblue;
+    }
+
+    .header {
+        background-color: rgba(148, 0, 211, 0.5);
+        margin-bottom: 16px;
+        padding: 5px;
+        border: solid 2px darkviolet;
+        border-radius: 10px;
+    }
+
+    .dpadDiv {
+        text-align: center;
+    }
+
+    .dpad {
+        width: 80px;
+        height: 80px;
+        padding: 15px;
+        border-width: 0px;
+        border-radius: 10px;
+        font-size: 42px;
+        background-color: rgba(148, 0, 211, 0);
+        cursor: pointer;
+        border: solid 3px lime;
+        border-radius: 10px;
+    }
+
+    .dpad:active {
+        filter: brightness(90%);
+    }
+
+    .panel {
+        position: absolute;
+        text-align: left;
+        margin: 10px;
+        background-color: rgba(148, 0, 211, 0.3);
+        padding: 20px;
+        border: solid 2px darkviolet;
+        border-radius: 10px;
+        width: 20%;
+        height: 80%;
+        /*display: none;*/
+    }
+
+    .panel p {
+        background-color: rgba(148, 0, 211, 0.5);
+        padding: 5px;
+        border-radius: 3px;
+    }
+
+    button {
+        background-color: rgba(255, 255, 255, 0.1);
+        border: solid 2px darkviolet;
+        border-radius: 10px;
+        font-size: 22px;
+        padding: 12px;
+        color: aliceblue;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: rgba(255, 255, 255, 0.25);
+        filter: brightness(130%);
+    }
+
+    button:active {
+        background-color: rgba(255, 255, 255, 0.3);
+        filter: brightness(150%);
+    }
+
+    #output {
+        height: 90%;
+        margin: 0;
+        overflow: scroll;
+        margin: 10px;
+        border: none 1px rgb(175, 120, 199);
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    #output p {
+        margin: 8px;
+    }
+
+    .popup {
+        position: absolute;
+        width: 30%;
+        height: 75%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(33, 0, 48, 0.95);
+        border: solid 2px darkviolet;
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    .exitButton {
+        background-color: rgba(255, 150, 150, 0.1);
+        color: aliceblue;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+        font-weight: bold;
+        border: solid darkviolet 2px;
+        border-radius: 30px;
+        padding: 0px;
+        cursor: pointer;
+    }
+
+    .exitButton:hover {
+        filter: brightness(130%);
+    }
+
+    .exitButton:active {
+        filter: brightness(150%);
+    }
+
+    select {
+        font-size: 16px;
+        padding: 5px;
+        background-color: rgba(148, 0, 211, 0.1);
+        color: aliceblue;
+        border: solid 2px darkviolet;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    option {
+        background-color: rgb(81, 0, 116);
+        cursor: pointer;
+    }
+
+    .checkbox {
+        cursor: pointer;
+        background-color: darkviolet;
+    }
+</style>
+
+<meta name="viewport" content="width=device-width, user-scalable=no">
+
+<head>
+    <title>Snake</title>
+    <link rel="icon" href="https://ratlab.one/wp-content/uploads/2022/09/icon.png">
+</head>
+
+<body>
+    <div class="header">
+        <h2 style="float: left; margin-left: 10%;"><a href="https://ratlab.one">Rat Lab</a></h2>
+        <h2 style="float: right; margin-right: 10%;">Snake - <span
+                style="font-weight: normal; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Ultraviolet
+                Edition</span></h2>
+        <br><br>
+    </div>
+    <canvas id="canvas" height="728" width="728"></canvas>
+    <div id="menu" class="panel" style="top: 65px; left: 10px;">
+        <button class="exitButton" onclick="togglePopup('menu')">X</button>
+        <h2>Menu</h2>
+        <br>
+        <button id="pauseButton" onclick="togglePause()">Unpause</button>
+        <br><br>
+        <button onclick="togglePopup('addPlayer')">Add Player</button>
+        <br><br>
+        <button onclick="togglePopup('gamemodes')">Gamemodes</button>
+    </div>
+    <div id="log" class="panel" style="top: 65px; right: 10px;">
+        <button class="exitButton" onclick="togglePopup('log')">X</button>
+        <h2>Game Log</h2>
+        <div id="output"></div>
+    </div>
+    <div class="popup" id="addPlayer" style="display: inline;">
+        <button class="exitButton" onclick="togglePopup('addPlayer')">X</button>
+        <h2 style="text-decoration: underline;">Add Player</h2>
+        <br>
+        <h3 style="margin-bottom: 5px;">Choose a Color:</h3>
+        <select name="colorPicker" id="colorPicker">
+            <option>Lime</option>
+            <option>Red</option>
+            <option>Orange</option>
+            <option>Yellow</option>
+            <option>Green</option>
+            <option>Aqua</option>
+            <option>Dark Violet</option>
+        </select>
+        <br>
+        <h3 style="margin-bottom: 5px;">Controls -<span style="font-weight: normal;"> Click to set or choose a
+                preset:</span></h3>
+        <select name="controlsPreset" id="controlsPreset">
+            <option>Select Preset</option>
+            <option>WASD</option>
+            <option>IJKL</option>
+            <option>Arrow Keys</option>
+        </select>
+        <br><br>
+        <div class="dpadDiv">
+            <button class="dpad" id="up"></button>
+            <br>
+            <button class="dpad" id="left"></button>
+            <button class="dpad" style="visibility: hidden;"></button>
+            <button class="dpad" id="right"></button>
+            <br>
+            <button class="dpad" id="down"></button>
+        </div>
+        <br><br>
+        <button onclick="addNewPlayer()">Join Game</button>
+    </div>
+    <div class="popup" id="gamemodes" style="display: none;">
+        <button class="exitButton" onclick="togglePopup('gamemodes')">X</button>
+        <h2 style="text-decoration: underline;">Gamemodes</h2>
+        <br>
+        <h3 style="display: inline;">Breakout</h3>
+        <input type="checkbox" id="breakoutGamemode" class="checkbox" style="display: inline;">
+        <button onclick="applyGamemodes()" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);">Apply</button>
+    </div>
+    <script src="snake.js"></script>
+</body>
+
+</html>

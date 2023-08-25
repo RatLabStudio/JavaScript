@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CrossWordle Editor</title>
+    <link rel="icon" href="https://ratlab.one/wp-content/uploads/2022/09/icon.png">
+    <link rel="stylesheet" href="../styles.css">
+
+    <style>
+        .menu {
+            position: absolute;
+            left: 30px;
+            top: 30px;
+            background-color: darkslateblue;
+            padding: 20px;
+            border-style: solid;
+            border-color: black;
+            border-width: 5px;
+            border-radius: 20px;
+        }
+
+        input {
+            font-size: 16px;
+            border-style: none;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        td:hover {
+            filter: brightness(120%);
+            border-color: darkslateblue;
+        }
+
+        p {
+            margin: 2px;
+        }
+
+        #direction {
+            cursor: pointer;
+            background-color: slateblue;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        #direction:hover {
+            filter: brightness(110%);
+        }
+
+        #addWord {
+            top: 30px;
+            right: 30px;
+            width: 15%;
+            height: 40%;
+        }
+
+        #removeWord {
+            bottom: 30px;
+            right: 30px;
+            width: 15%;
+            height: 40%;
+        }
+
+        .panel {
+            background: darkslateblue;
+            padding: 5px;
+            border-radius: 10px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: black;
+            position: fixed;
+            z-index: 9;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Cross Wordle Editor</h1>
+    <!--<h2>FBLA Nationals Pre Release 2.1 - <a href="https://discord.gg/bEeh62EGt8">Report bugs here!</a></h2>-->
+
+    <table style="margin: auto;">
+        <tbody id="mainTable" style="display: inline;"></tbody>
+    </table>
+
+    <br>
+    <p>Location:</p>
+    <input type="text" id="location" name="location" placeholder="Location" value="0,0">
+
+    <div class="panel" id="addWord" style="display: inline;">
+        <h3 style="float: left; margin: 10px 20px; text-decoration: underline;">Add Word</h3>
+        <button class="exitButton" onclick="togglePopup('addWord')">X</button>
+        <div style="text-align: left; margin: 20px;">
+            <br><br>
+            <p>Word:</p>
+            <input type="text" id="word" name="word" placeholder="Word" value="">
+            <br><br>
+            <p>Hint:</p>
+            <input type="text" id="hint" name="hint" placeholder="Hint" value="">
+            <br><br>
+            <p>Direction (Click):</p>
+            <p id="direction">Horizontal</p>
+            <button onclick="addWord()" style="position: absolute; bottom: 15px; left: 25px; font-size: 16px;">Add
+                Word</button>
+        </div>
+    </div>
+    <div class="panel" id="removeWord" style="display: inline;">
+        <h3 style="float: left; margin: 10px 20px; text-decoration: underline;">Remove Word</h3>
+        <button class="exitButton" onclick="togglePopup('removeWord')">X</button>
+        <br><br>
+        <div style="text-align: left; margin: 20px;">
+            <p>To remove a word, click on a letter of that word, and it will highlight the entire word. Then click
+                "Remove Word" below to remove it</p>
+            <button onclick="removeWord()" style="position: absolute; bottom: 15px; left: 25px; font-size: 16px;">Remove
+                Word</button>
+        </div>
+    </div>
+
+    <div class="popup" id="settings" style="display: none;">
+        <h3 style="float: left; margin: 10px 20px; text-decoration: underline;">Settings</h3>
+        <button class="exitButton" onclick="togglePopup('settings')">X</button>
+        <br><br>
+        <div style="text-align: left; margin: 20px;">
+            <p>Puzzle Size:</p>
+            <input type="number" id="size" name="size" placeholder="Puzzle Size" value="10">
+        </div>
+    </div>
+
+    <div class="popup" id="loadPuzzle" style="display: none;">
+        <h3 style="float: left; margin: 10px 20px; text-decoration: underline;">Load Puzzle</h3>
+        <button class="exitButton" onclick="togglePopup('loadPuzzle')">X</button>
+        <br><br>
+        <div style="text-align: left; margin: 20px;">
+            <p style="margin-bottom: 3px;">Input JSON File Here:</p>
+            <input type="file" id="puzzleFile"></input>
+        </div>
+    </div>
+
+    <div id="menu" class="menu">
+        <h1 style="margin-top: 0px; margin-bottom: 10px;">Menu</h1>
+        <button onclick="togglePopup('loadPuzzle')">Load Puzzle</button>
+        <!--<br>
+        <button onclick="togglePopup('addWord')">Add Word</button>
+        <br>
+        <button onclick="togglePopup('removeWord')">Remove Word</button>
+        <br>
+        <button onclick="togglePopup('settings')">Settings</button>-->
+        <br>
+        <button onclick="save()">Save Puzzle</button>
+    </div>
+
+    <h3 style="position: absolute; bottom: 10px; left: 10px; margin: 0;">Matteo Salverio -
+        FBLA 2023</h3>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="../../resources\media\favicon.png">
+    <title>Rat Type</title>
+
+    <style>
+        html {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            background-color: darkslategray;
+            color: aliceblue;
+            text-align: center;
+        }
+
+        a {
+            color: lightgreen;
+            cursor: pointer;
+        }
+
+        a:hover {
+            filter: brightness(125%);
+        }
+
+        .ratLab {
+            font-size: 32px;
+            font-family: sans-serif;
+            text-decoration: none;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            margin: 0;
+        }
+
+        .input {
+            font-size: 32px;
+            color: rgba(240, 248, 255, 0.5);
+            font-family: sans-serif;
+            width: 80%;
+            margin: auto;
+            text-align: left;
+            line-height: 60px;
+            padding: 20px;
+            border-style: solid;
+            border-color: aliceblue;
+            border-width: 1px;
+            border-radius: 10px;
+        }
+
+        button {
+            font-size: 24px;
+            padding: 10px;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, 0.40);
+            border-width: 3px;
+            border-radius: 10px;
+            background-color: lightseagreen;
+            cursor: pointer;
+        }
+
+        button:hover {
+            filter: brightness(120%);
+        }
+
+        button:active {
+            filter: brightness(150%);
+        }
+
+        .popup {
+            background: darkslateblue;
+            padding: 5px;
+            border-radius: 10px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: black;
+            position: fixed;
+            width: 250px;
+            height: 350px;
+            top: 40%;
+            left: 50%;
+            margin-top: -175px;
+            margin-left: -125px;
+            z-index: 9;
+        }
+
+        .exitButton {
+            font-size: 10px;
+            font-weight: bold;
+            padding: 4px;
+            float: right;
+            margin: 10px;
+            width: 25px;
+            background-color: tomato;
+            cursor: pointer;
+        }
+
+        #time {
+            width: 12%;
+            margin: auto;
+            padding: 10px;
+            border-style: solid;
+            border-color: aliceblue;
+            border-width: 1px;
+            border-radius: 10px;
+            background-color: rgb(56, 93, 93);
+        }
+    </style>
+</head>
+
+<body>
+    <a class="ratLab" href="https://ratlabstudio.com">Rat Lab</a>
+    <h1 style="text-decoration: underline;">Rat Type</h1>
+    <h2>Start typing to begin!</h2>
+    <br>
+    <h2 id="time" style="font-size: 32px;"></h2>
+    <br><br>
+    <p class="input" id="input"></p>
+    <div class="popup" id="scoreReport" style="display: none;">
+        <h2 style="float: left; margin: 10px 20px; text-decoration: underline;">Score Report</h2>
+        <!--<button class="exitButton" onclick="togglePopup('howToPlay')">X</button>-->
+        <br><br>
+        <div style="text-align: center; margin: 20px; margin-top: 60px;">
+            <p id="wpm" style="font-size: 50px; margin: 0; font-family: sans-serif;">0 WPM</p>
+            <p id="accuracy" style="font-size: 20px; margin: 10px;">At 0% Accuracy</p>
+            <br>
+            <p id="grossWpm">Gross WPM:</p>
+            <button id="playAgain" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 170px;">Play Again</button>
+        </div>
+    </div>
+    <p style="position: absolute; bottom: 10px; left: 10px; margin: 0; font-size: 24px;">Rat Lab 2023</p>
+    <script src="script.js"></script>
+</body>
+
+</html>

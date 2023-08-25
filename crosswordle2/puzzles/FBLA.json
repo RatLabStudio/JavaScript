@@ -1,0 +1,53 @@
+{
+    "size": 10,
+    "words": [
+        {
+            "id": 0,
+            "location": "2,1",
+            "direction": "horizontal",
+            "word": "FUTURE",
+            "attempts": [],
+            "hint": "A later date"
+        },
+        {
+            "id": 1,
+            "location": "1,2",
+            "direction": "vertical",
+            "word": "BUSINESS",
+            "attempts": [],
+            "hint": "Not a casual enviornment"
+        },
+        {
+            "id": 2,
+            "location": "6,1",
+            "direction": "horizontal",
+            "word": "LEADERS",
+            "attempts": [],
+            "hint": "People who can direct others well"
+        },
+        {
+            "id": 3,
+            "location": "1,6",
+            "direction": "vertical",
+            "word": "NETWORK",
+            "attempts": [],
+            "hint": "Create connections with others"
+        },
+        {
+            "id": 4,
+            "location": "4,1",
+            "direction": "horizontal",
+            "word": "TIME",
+            "attempts": [],
+            "hint": "What a clock tells"
+        },
+        {
+            "id": 5,
+            "location": "1,4",
+            "direction": "vertical",
+            "word": "JUNE",
+            "attempts": [],
+            "hint": "When the FBLA National Leadership Conference takes place"
+        }
+    ]
+}
