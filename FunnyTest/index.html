@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Funny Test</title>
+    <!--<link rel="icon" href="../favicon.png">-->
+    <style>
+        html,
+        body {
+            font-family: "Open Sans", "Helvetica Neue", Arial;
+            margin: 20px;
+            text-align: center;
+            color: #576071;
+            scroll-behavior: smooth;
+        }
+
+        p {
+            font-size: 24px;
+        }
+
+        .questionBox {
+            background-color: rgba(0, 0, 0, 0.0);
+            padding: 16px;
+            border: solid 0px black;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: auto;
+            margin-top: 50px;
+            margin-bottom: 100px;
+        }
+
+        hr {
+            margin-top: 200px;
+            margin-bottom: 200px;
+        }
+
+        .answerSection {
+            margin-left: 15px;
+            width: 100%;
+        }
+
+        .answer {
+            width: 64px;
+            height: 64px;
+            border: solid 3px rgb(50, 50, 50);
+            border-radius: 100%;
+            cursor: pointer;
+            margin: 10px;
+            background-color: rgba(0, 0, 0, 0);
+            position: relative;
+        }
+
+        #progressBar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(51, 164, 116);
+            height: 10px;
+            width: 100%;
+        }
+
+        #percentage {
+            position: fixed;
+            top: 20px;
+            left: 10px;
+            margin: 0;
+            padding: 0;
+            color: rgb(51, 164, 116);
+        }
+
+        button {
+            font-size: 24px;
+            padding: 10px;
+            border: solid 1px black;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            filter: brightness(120%);
+        }
+
+        .panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 50%;
+            height: 50%;
+            transform: translate(-50%, -50%);
+            border: solid 10px black;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: darkslategray;
+            color: aliceblue;
+        }
+
+        .exitButton {
+            background-color: tomato;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 0;
+        }
+
+        #scoringPage {
+            max-width: 500px;
+            margin: auto;
+        }
+
+        table {
+            font-size: 24px;
+            margin: auto;
+        }
+
+        th,
+        td {
+            border: solid 2px black;
+            padding: 10px;
+            margin: 0;
+        }
+
+        th {
+            font-weight: bold;
+            background-color: darkslateblue;
+            color: aliceblue;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="title" style="text-decoration: underline;">Funny Test</h1>
+    <br><br>
+    <div id="mainTestPage" style="visibility: unset;">
+        <div id="progressBar" style="width: 0%;"></div>
+        <p id="percentage">0%</p>
+
+        <div style="margin-bottom: 100px; max-width: 1000px; margin: auto;"></div>
+        <div id="questions"></div>
+        <button onclick="calculateScore()"
+            style="background-color: rgb(51, 164, 116); font-weight: bold;">Finish</button>
+    </div>
+
+    <div id="scoringPage" style="visibility: hidden;">
+        <table id="resultsTable">
+            <tr id="headerRow">
+                <th>Trait</th>
+                <th>Your Results</th>
+                <th>Other Person</th>
+            </tr>
+        </table>
+        <br><br>
+    </div>
+
+    <div class="panel" id="results" style="visibility: hidden;">
+        <button class="exitButton" onclick="toggleElement('results')">X</button>
+        <h1>Results:</h1>
+        <ul id="displayResults" style="overflow: scroll; height: 80%;"></ul>
+    </div>
+
+    <div class="panel" id="flippedExplanation" style="visibility: hidden;">
+        <button class="exitButton" onclick="toggleElement('flippedExplanation')">X</button>
+        <h1>Next Steps:</h1>
+        <p>You can now hand the device to someone else and you can compare results after.
+        </p>
+        <button onclick="toggleElement('flippedExplanation')">Begin</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
