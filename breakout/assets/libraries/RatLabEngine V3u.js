@@ -260,34 +260,26 @@ class obj { // General class, mainly for inheritance
             let space = 16; // Allows you to slide on surfaces
             if (dir == 'up') {
                 if (this.hitBox.top <= o.hitBox.bottom && this.hitBox.bottom >= o.hitBox.top + space) {
-                    if (this.hitBox.right >= o.hitBox.left + space && this.hitBox.left <= o.hitBox.right - space) {
-                        //o.onCollide(this);
+                    if (this.hitBox.right >= o.hitBox.left + space && this.hitBox.left <= o.hitBox.right - space)
                         return o;
-                    }
                 }
             }
             else if (dir == 'down') {
                 if (this.hitBox.bottom >= o.hitBox.top && this.hitBox.top <= o.hitBox.bottom - space) {
-                    if (this.hitBox.right >= o.hitBox.left + space && this.hitBox.left <= o.hitBox.right - space) {
-                        //o.onCollide(this);
+                    if (this.hitBox.right >= o.hitBox.left + space && this.hitBox.left <= o.hitBox.right - space)
                         return o;
-                    }
                 }
             }
             else if (dir == 'left') {
                 if (this.hitBox.left <= o.hitBox.right && this.hitBox.right >= o.hitBox.left + space) {
-                    if (this.hitBox.bottom >= o.hitBox.top + space && this.hitBox.top <= o.hitBox.bottom - space) {
-                        //o.onCollide(this);
+                    if (this.hitBox.bottom >= o.hitBox.top + space && this.hitBox.top <= o.hitBox.bottom - space)
                         return o;
-                    }
                 }
             }
             else if (dir == 'right') {
                 if (this.hitBox.right >= o.hitBox.left && this.hitBox.left <= o.hitBox.right - space) {
-                    if (this.hitBox.bottom >= o.hitBox.top + space && this.hitBox.top <= o.hitBox.bottom - space) {
-                        //o.onCollide(this);
+                    if (this.hitBox.bottom >= o.hitBox.top + space && this.hitBox.top <= o.hitBox.bottom - space)
                         return o;
-                    }
                 }
             }
             else if (dir == "all") {
@@ -304,8 +296,6 @@ class obj { // General class, mainly for inheritance
         return false;
     }
 
-    onCollide(collidingObject) { } // Called when object is collided with
-
     move(dir, speed) {
         speed *= 1;
         let strength = 0.02 * this.mass; // Strength of push force
@@ -316,8 +306,8 @@ class obj { // General class, mainly for inheritance
                 }
                 else {
                     this.colliderCheck('up').applyForce('vertical', -strength); // Applies a pushing force to the interacting object
-                    if (this.movable)
-                        this.forces.vertical *= -1; // Applies a force back on the main object*/
+                    /*if (this.movable)
+                        this.applyForce('vertical', strength * 0.8); // Applies a force back on the main object*/
                 }
             }
             else if (dir == 'down') {
@@ -326,8 +316,8 @@ class obj { // General class, mainly for inheritance
                 }
                 else {
                     this.colliderCheck('down').applyForce('vertical', strength);
-                    if (this.movable)
-                        this.forces.vertical *= -1;
+                    /*if (this.movable)
+                        this.applyForce('vertical', -strength * 0.8);*/
                 }
             }
             else if (dir == 'right') {
@@ -336,8 +326,8 @@ class obj { // General class, mainly for inheritance
                 }
                 else {
                     this.colliderCheck('right').applyForce('horizontal', strength);
-                    if (this.movable)
-                        this.forces.horizontal *= -1;
+                    /*if (this.movable)
+                        this.applyForce('horizontal', -strength * 0.8);*/
                 }
             }
             else if (dir == 'left') {
@@ -346,8 +336,8 @@ class obj { // General class, mainly for inheritance
                 }
                 else {
                     this.colliderCheck('left').applyForce('horizontal', -strength);
-                    if (this.movable)
-                        this.forces.horizontal *= -1;
+                    /*if (this.movable)
+                        this.applyForce('horizontal', strength * 0.8);*/
                 }
             }
         }
