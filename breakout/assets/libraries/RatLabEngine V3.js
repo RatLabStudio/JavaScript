@@ -252,12 +252,25 @@ class obj { // General class, mainly for inheritance
 
     draw() { } // Draws the object
 
-    colliderCheck(dir) {
+    colliderCheck(dir, exclude) {
+        if (exclude == null)
+            exclude = [];
         for (let i = 0; i < this.scene.objs.length; i++) {
             if (this.scene.objs[i] == this) // Makes sure objects won't collide with themselves
                 continue;
+            else {
+                let skip = false;
+                for (let e = 0; e < exclude.length; e++) {
+                    if (exclude[e] == this.scene.objs[i]) {
+                        skip = true;
+                        break;
+                    }
+                }
+                if (skip)
+                    continue;
+            }
             let o = this.scene.objs[i];
-            let space = 16; // Allows you to slide on surfaces
+            let space = 2; // Allows you to slide on surfaces
             if (dir == 'up') {
                 if (this.hitBox.top <= o.hitBox.bottom && this.hitBox.bottom >= o.hitBox.top + space) {
                     if (this.hitBox.right >= o.hitBox.left + space && this.hitBox.left <= o.hitBox.right - space) {
@@ -304,48 +317,60 @@ class obj { // General class, mainly for inheritance
         return false;
     }
 
+    futureColliderCheck(dir) {
+        let tempObj = new box(this.scene, this.x + this.forces.horizontal * 2, this.y + this.forces.vertical * 2, this.w, this.h, this.mass, "rgba(0,0,0,1)", this.movable);
+        let c = tempObj.colliderCheck(dir, [this]);
+        tempObj.destroy();
+        return(c);
+    }
+
     onCollide(collidingObject) { } // Called when object is collided with
+
+    backTrack() {
+        this.x -= this.forces.horizontal;
+        this.y -= this.forces.vertical;
+    }
 
     move(dir, speed) {
         speed *= 1;
         let strength = 0.02 * this.mass; // Strength of push force
         try {
             if (dir == 'up') {
-                if (!this.colliderCheck('up')) {
+                if (!this.futureColliderCheck('up')) {
                     this.y -= speed;
                 }
                 else {
-                    this.colliderCheck('up').applyForce('vertical', -strength); // Applies a pushing force to the interacting object
+                    this.futureColliderCheck('up').applyForce('vertical', -strength); // Applies a pushing force to the interacting object
                     if (this.movable)
                         this.forces.vertical *= -1; // Applies a force back on the main object*/
                 }
             }
             else if (dir == 'down') {
-                if (!this.colliderCheck('down')) {
+                if (!this.futureColliderCheck('down')) {
                     this.y += speed;
                 }
                 else {
-                    this.colliderCheck('down').applyForce('vertical', strength);
+                    this.futureColliderCheck('down').applyForce('vertical', strength);
                     if (this.movable)
                         this.forces.vertical *= -1;
                 }
             }
             else if (dir == 'right') {
-                if (!this.colliderCheck('right')) {
+                if (!this.futureColliderCheck('right')) {
                     this.x += speed;
                 }
                 else {
-                    this.colliderCheck('right').applyForce('horizontal', strength);
+                    this.futureColliderCheck('right').applyForce('horizontal', strength);
                     if (this.movable)
                         this.forces.horizontal *= -1;
                 }
             }
             else if (dir == 'left') {
-                if (!this.colliderCheck('left')) {
+                if (!this.futureColliderCheck('left')) {
                     this.x -= speed;
                 }
                 else {
-                    this.colliderCheck('left').applyForce('horizontal', -strength);
+                    this.futureColliderCheck('left').applyForce('horizontal', -strength);
                     if (this.movable)
                         this.forces.horizontal *= -1;
                 }
