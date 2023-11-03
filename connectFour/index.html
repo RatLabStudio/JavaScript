@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect Four | Rat Lab Studio</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            background-color: rgb(37, 37, 99);
+            color: aliceblue;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            text-align: center;
+        }
+
+        table {
+            margin: auto;
+            background: linear-gradient(-45deg, blue, rgb(43, 43, 255));
+            padding: 20px;
+            border: solid 5px black;
+            border-radius: 20px;
+            box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        td {
+            border: none;
+            border-radius: 100px;
+            background-color: rgb(37, 37, 99);
+            color: black;
+            width: 60px;
+            height: 60px;
+            border: solid 5px rgb(10, 10, 118);
+            border-collapse: separate;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        td:hover {
+            filter: brightness(130%);
+        }
+
+        .red {
+            background: linear-gradient(-45deg, tomato, rgb(255, 148, 129));
+            transition: all 0.5s ease;
+        }
+
+        .yellow {
+            background: linear-gradient(-45deg, gold, rgb(255, 236, 131));
+        }
+
+        .panel {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%;
+            height: 50%;
+            background: linear-gradient(-45deg, rgba(128, 128, 255, 0.5), rgba(128, 128, 128, 0.5));
+            backdrop-filter: blur(50px);
+            border: solid 0px black;
+            border-radius: 20px;
+            box-shadow: 16px 16px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        #winnerDisplay {
+            position: relative;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 6vh;
+            margin: 0;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        button {
+            font-size: 3vh;
+            padding: 1.5vh;
+            background: linear-gradient(-45deg, rgba(63, 63, 255, 0.45), rgba(125, 125, 255, 0.45));
+            backdrop-filter: blue(50px);
+            border: solid 2px black;
+            border-radius: 20px;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            filter: brightness(150%);
+        }
+
+        button:active {
+            filter: brightness(200%);
+        }
+
+        .resetButton {
+            position: absolute;
+            bottom: 30%;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-decoration: underline; margin-top: 40px; margin-bottom: 0px; font-size: 52px;">Connect Four</h1>
+    <h3>Rat Lab Studio 2023</h3>
+    <br><br>
+    <table id="gameBoard" cellspacing="16"></table>
+    <div class="panel" id="winnerPanel" style="visibility: hidden;">
+        <h1 id="winnerDisplay">Nobody Wins!</h1>
+        <button class="resetButton" onclick="resetBoard()">Reset Board</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
