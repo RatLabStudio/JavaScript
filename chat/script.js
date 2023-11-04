@@ -126,6 +126,10 @@ window.onerror = function (e, url, line) {
     error(e);
 }
 
-log("App running in *front-end alpha mode*");
+function login() {
+
+}
+
+/*log("App running in *front-end alpha mode*");
 displayMessage("##The *quick* brown fox *jumped* over the **lazy dog**.<br><br>According to ***all known laws of aviation***, there is no way a *bee* should be able to **fly**.", session.user);
-displayMessage("###Welcome to the Rat Lab Studio!<br>This is a test for an upcoming Rat Lab project, which hasn't been named yet. It will be a cool chat app that allows you to use your own servers to chat with friends!", session.user);
+displayMessage("###Welcome to the Rat Lab Studio!<br>This is a test for an upcoming Rat Lab project, which hasn't been named yet. It will be a cool chat app that allows you to use your own servers to chat with friends!", session.user);*/

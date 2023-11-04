@@ -326,6 +326,50 @@
             box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
             transition: all 0.2s ease;
         }
+
+        .panel {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%;
+            height: 50%;
+            padding: 4vh;
+            background-color: var(--lighterBackground);
+            border: solid 2px var(--cadet);
+            border-radius: 3vh;
+            text-align: center;
+            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        input {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 2.5vh;
+            padding: 1vh;
+            border: solid 2px black;
+            border-radius: 6px;
+            outline: none;
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        input[type=submit] {
+            background-color: var(--cadet);
+            color: black;
+            border-width: 3px;
+            padding-left: 2vh;
+            padding-right: 2vh;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            filter: brightness(120%);
+        }
+
+        input[type=submit]:active {
+            filter: brightness(110%);
+        }
     </style>
     <script src="markdown.js"></script> <!-- Adds markdown detection to the messages -->
 </head>
@@ -338,7 +382,7 @@
         <p style="position: relative; top: -15%; margin-left: 120px; transform: translateY(-50%); font-size: 14px;">Rat
             Lab Studio 2023</p>
     </div>
-    <div id="page">
+    <div id="page" style="filter: blur(10px);">
         <div id="sidebar">
             <br><br><br>
             <h2 style="margin-bottom: 10px;"><a href="https://ratlabstudio.com" style="color: rgb(108, 224, 228);">Rat
@@ -351,11 +395,16 @@
             <h2>Markdown:</h2>
             <ul style="transform: translateX(-10px);">
                 <li style="color: var(--blue); cursor: pointer;" onclick="input.innerHTML += '#';"># Heading 1</li>
-                <li style="color: var(--bluegreen); cursor: pointer;" onclick="input.innerHTML += '##';">## Heading 2</li>
-                <li style="color: var(--yellow); cursor: pointer;" onclick="input.innerHTML += '###';">### Heading 3</li>
-                <li style="font-style: italic; cursor: pointer;" onclick="input.innerHTML += '*Italic text here*';">* Italic *</li>
-                <li style="font-weight: bold; cursor: pointer;" onclick="input.innerHTML += '**Bold text here**';">** Bold **</li>
-                <li style="font-style: italic; font-weight: bold; cursor: pointer;" onclick="input.innerHTML += '***Bold and Italic text here***';">*** Bold and Italic
+                <li style="color: var(--bluegreen); cursor: pointer;" onclick="input.innerHTML += '##';">## Heading 2
+                </li>
+                <li style="color: var(--yellow); cursor: pointer;" onclick="input.innerHTML += '###';">### Heading 3
+                </li>
+                <li style="font-style: italic; cursor: pointer;" onclick="input.innerHTML += '*Italic text here*';">*
+                    Italic *</li>
+                <li style="font-weight: bold; cursor: pointer;" onclick="input.innerHTML += '**Bold text here**';">**
+                    Bold **</li>
+                <li style="font-style: italic; font-weight: bold; cursor: pointer;"
+                    onclick="input.innerHTML += '***Bold and Italic text here***';">*** Bold and Italic
                     ***</li>
             </ul>
             <br>
@@ -363,6 +412,7 @@
             <br>
             <button>Alpha Test</button>
         </div>
+
         <div id="documentBody">
             <br><br><br>
             <div id="messages"></div>
@@ -373,6 +423,22 @@
         </div>
     </div>
 
+    <div class="panel" id="loginPanel">
+        <h1 style="color: var(--cadet);">Rat Lab Studio Chat</h1>
+        <br>
+        <h1 style="text-align: center;">Welcome! Please Log In Below:</h1>
+        <br>
+        <p>Accounts are currently request-given only.</p>
+        <br><br>
+        <form action="" autocomplete="on">
+            <br><br>
+            <input type="text" placeholder="Username">
+            <br><br>
+            <input type="password" placeholder="Password">
+            <br><br>
+            <input type="submit" value="Login">
+        </form>
+    </div>
     <script src="script.js"></script>
 </body>
 
