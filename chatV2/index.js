@@ -73,6 +73,4 @@ app.post("/sendMessage/:server_id/:message/:user_id", async (request, response) 
     `, [message, request.params.user_id, request.params.server_id]);
 });
 
-document.getE
-
 app.listen(process.env.PORT || 3000, () => console.log('App available on http://localhost:3000'));
