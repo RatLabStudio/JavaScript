@@ -524,6 +524,7 @@
             return `${month}/${day}/${year} ${hours}:${minutes} ${suffix}`;
         }
 
+        // Adds a message visually to the page
         function displayMessage(message, user) {
             if (messages.length > 0 && user.username == messages[messages.length - 1].senderId) {
                 //messages[messages.length - 1].element.innerHTML += "<br><br>" + convertToMarkdown(message);
