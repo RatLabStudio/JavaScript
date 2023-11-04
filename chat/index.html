@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat | Rat Lab Studio</title>
+    <style>
+        :root {
+            --cadet: rgb(105, 189, 192);
+            --blue: rgb(22, 243, 255);
+            --bluegreen: rgb(47, 255, 150);
+            --yellow: rgb(244, 210, 72);
+            --orange: rgb(234, 150, 47);
+            --red: rgb(242, 102, 77);
+            --pink: rgb(244, 27, 244);
+            --backgroundColor: rgb(36, 36, 36);
+            --lighterBackground: rgb(43, 43, 43);
+            --evenLighterBackground: rgb(53, 53, 53);
+            --fontSize: 24px;
+            --H1fontSize: 40px;
+            --H2fontSize: 36px;
+            --H3fontSize: 30px;
+            --H4fontSize: 28px;
+            --H5fontSize: 26px;
+        }
+
+        html,
+        body {
+            background-color: var(--backgroundColor);
+            margin: 0;
+            padding: 0;
+            color: white;
+            font-family: sans-serif;
+            height: 100%;
+            overflow: hidden;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        button {
+            font-size: 18px;
+            padding: 5%;
+            border: solid 2px black;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: var(--cadet);
+            color: black;
+            font-weight: bold;
+        }
+
+        button:hover {
+            filter: brightness(120%);
+        }
+
+        button:active {
+            filter: brightness(140%);
+        }
+
+        #page {
+            display: flex;
+            height: 100%;
+        }
+
+        #ribbon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background-color: var(--evenLighterBackground);
+            margin: 0;
+            z-index: 9;
+            cursor: pointer;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .windowButton {
+            width: 16px;
+            height: 16px;
+            padding: 0;
+            border: none;
+            position: relative;
+            top: 50%;
+            margin-left: 10px;
+            transform: translateY(-50%);
+        }
+
+        #sidebar {
+            position: unset;
+            top: 0;
+            left: 0;
+            width: 20%;
+            height: 100%;
+            margin: 0;
+            background-color: var(--lighterBackground);
+            padding: 0% 2% 0% 2%;
+            min-width: 200px;
+            max-width: 200px;
+            z-index: 1;
+            box-shadow: 4px 0px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        #documentBody {
+            background-color: var(--backgroundColor);
+            height: 100%;
+            margin: 0;
+            padding: 2vh;
+            width: 100%;
+        }
+
+        .textArea {
+            width: 70%;
+            height: 90%;
+            position: absolute;
+            top: 53%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0);
+            border: none;
+            color: white;
+            font-size: var(--fontSize);
+            cursor: text;
+            outline: none;
+            overflow: scroll;
+        }
+
+        .h1,
+        .h2,
+        .h3,
+        .h4,
+        .h5,
+        .h6 {
+            font-weight: bold;
+        }
+
+        /* # */
+        .h1 {
+            font-size: var(--H1fontSize);
+            color: var(--blue);
+        }
+
+        /* ## */
+        .h2 {
+            font-size: var(--H2fontSize);
+            color: var(--bluegreen);
+        }
+
+        /* ### */
+        .h3 {
+            font-size: var(--H3fontSize);
+            color: var(--yellow);
+        }
+
+        /* #### */
+        .h4 {
+            font-size: var(--H4fontSize);
+            color: var(--orange);
+        }
+
+        /* ##### */
+        .h5 {
+            font-size: var(--H5fontSize);
+            color: var(--red);
+        }
+
+        /*  **  */
+        .bold {
+            font-weight: bold;
+        }
+
+        /*  *  */
+        .italic {
+            font-style: italic;
+        }
+
+        /* [[]] */
+        a {
+            color: var(--pink);
+        }
+
+        .bubble {
+            padding: 1.5vh;
+            background-color: var(--evenLighterBackground);
+            border: none;
+            border-radius: 10px 10px 10px 0px;
+            font-size: 2vh;
+            width: fit-content;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .bubble:hover {
+            padding: 1.7vh;
+        }
+
+        .chat {
+            font-size: 2vh;
+            margin-top: 2vh;
+            background-color: rgba(255, 255, 255, 0.03);
+            padding: 2vh;
+            border: none;
+            border-radius: 2vh;
+            /*box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);*/
+            transition: all 0.3s ease;
+        }
+
+        .chat:hover {
+            padding: 2.2vh;
+        }
+
+        .subchat {
+            margin-top: 0.5vh;
+        }
+
+        .log {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 2.2vh;
+            background-color: rgba(128, 200, 255, 0.05);
+            border: solid 1px rgba(255, 255, 255, 0.5);
+        }
+
+        .error {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 2.2vh;
+            background-color: rgba(255, 128, 128, 0.05);
+            border: solid 1px rgba(255, 128, 128, 0.5);
+        }
+
+        .senderInfo {
+            margin-bottom: 0;
+        }
+
+        .senderPicture {
+            width: 3vh;
+            border: none;
+            border-radius: 2px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .senderText {
+            font-size: 2vh;
+            font-weight: bold;
+            position: relative;
+            bottom: 0.8vh;
+            margin-right: 2vh;
+            color: var(--blue);
+            cursor: pointer;
+        }
+
+        .miniName {
+            position: absolute;
+            opacity: 50%;
+            font-size: 18px;
+        }
+
+        .sendTime {
+            font-size: 1.8vh;
+            font-weight: normal;
+            position: relative;
+            bottom: 0.8vh;
+        }
+
+        .miniTime {
+            position: absolute;
+            right: 6%;
+            opacity: 50%;
+            font-size: 18px;
+        }
+
+        #messages {
+            height: 84%;
+            padding-left: 2%;
+            padding-right: 2%;
+            overflow: scroll;
+            margin-bottom: 1vh;
+        }
+
+        #inputArea {
+            display: flex;
+        }
+
+        #textInput {
+            resize: none;
+            flex: 1;
+            font-size: 2vh;
+            font-family: sans-serif;
+            height: 2.5vh;
+            padding: 1.5vh;
+            background-color: var(--evenLighterBackground);
+            margin: 0;
+            border: none;
+            border-radius: 10px 0px 0px 10px;
+            color: white;
+            outline: none;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+            overflow: scroll;
+        }
+
+        #inputArea button {
+            height: 5.5vh;
+            padding: 0;
+            margin: 0;
+            aspect-ratio: 1;
+            background-color: rgb(42, 94, 96);
+            color: white;
+            border: none;
+            border-radius: 0px 10px 10px 0px;
+            font-size: 36px;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+            transition: all 0.2s ease;
+        }
+    </style>
+    <script src="markdown.js"></script> <!-- Adds markdown detection to the messages -->
+</head>
+
+<body>
+    <div id="ribbon">
+        <button class="windowButton" style="background-color: var(--red);"></button>
+        <button class="windowButton" style="background-color: var(--yellow);"></button>
+        <button class="windowButton" style="background-color: var(--bluegreen);"></button>
+        <p style="position: relative; top: -15%; margin-left: 120px; transform: translateY(-50%); font-size: 14px;">Rat
+            Lab Studio 2023</p>
+    </div>
+    <div id="page">
+        <div id="sidebar">
+            <br><br><br>
+            <h2 style="margin-bottom: 10px;"><a href="https://ratlabstudio.com" style="color: rgb(108, 224, 228);">Rat
+                    Lab
+                    Studio</a></h2>
+            <h2 style="font-weight: normal;">Chat App</h2>
+            <br>
+            <p>Prototype v2.0</p>
+            <br><br>
+            <h2>Markdown:</h2>
+            <ul style="transform: translateX(-10px);">
+                <li style="color: var(--blue); cursor: pointer;" onclick="input.innerHTML += '#';"># Heading 1</li>
+                <li style="color: var(--bluegreen); cursor: pointer;" onclick="input.innerHTML += '##';">## Heading 2</li>
+                <li style="color: var(--yellow); cursor: pointer;" onclick="input.innerHTML += '###';">### Heading 3</li>
+                <li style="font-style: italic; cursor: pointer;" onclick="input.innerHTML += '*Italic text here*';">* Italic *</li>
+                <li style="font-weight: bold; cursor: pointer;" onclick="input.innerHTML += '**Bold text here**';">** Bold **</li>
+                <li style="font-style: italic; font-weight: bold; cursor: pointer;" onclick="input.innerHTML += '***Bold and Italic text here***';">*** Bold and Italic
+                    ***</li>
+            </ul>
+            <br>
+            <h2>Servers:</h2>
+            <br>
+            <button>Alpha Test</button>
+        </div>
+        <div id="documentBody">
+            <br><br><br>
+            <div id="messages"></div>
+            <div id="inputArea">
+                <textarea id="textInput"></textarea>
+                <button onclick="testMessage()">></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
