@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat | Rat Lab Studio</title>
+    <style>
+        :root {
+            --cadet: rgb(105, 189, 192);
+            --blue: rgb(22, 243, 255);
+            --bluegreen: rgb(47, 255, 150);
+            --yellow: rgb(244, 210, 72);
+            --orange: rgb(234, 150, 47);
+            --red: rgb(242, 102, 77);
+            --pink: rgb(244, 27, 244);
+            --backgroundColor: rgb(36, 36, 36);
+            --lighterBackground: rgb(43, 43, 43);
+            --evenLighterBackground: rgb(53, 53, 53);
+            --fontSize: 24px;
+            --H1fontSize: 40px;
+            --H2fontSize: 36px;
+            --H3fontSize: 30px;
+            --H4fontSize: 28px;
+            --H5fontSize: 26px;
+        }
+
+        html,
+        body {
+            background-color: var(--backgroundColor);
+            margin: 0;
+            padding: 0;
+            color: white;
+            font-family: sans-serif;
+            height: 100%;
+            overflow: hidden;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        button {
+            font-size: 18px;
+            padding: 5%;
+            border: solid 2px black;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: var(--cadet);
+            color: black;
+            font-weight: bold;
+        }
+
+        button:hover {
+            filter: brightness(120%);
+        }
+
+        button:active {
+            filter: brightness(140%);
+        }
+
+        #page {
+            display: flex;
+            height: 100%;
+        }
+
+        #ribbon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background-color: var(--evenLighterBackground);
+            margin: 0;
+            z-index: 9;
+            cursor: pointer;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .windowButton {
+            width: 16px;
+            height: 16px;
+            padding: 0;
+            border: none;
+            position: relative;
+            top: 50%;
+            margin-left: 10px;
+            transform: translateY(-50%);
+        }
+
+        #sidebar {
+            position: unset;
+            top: 0;
+            left: 0;
+            width: 20%;
+            height: 100%;
+            margin: 0;
+            background-color: var(--lighterBackground);
+            padding: 0% 2% 0% 2%;
+            min-width: 200px;
+            max-width: 200px;
+            z-index: 1;
+            box-shadow: 4px 0px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        #documentBody {
+            background-color: var(--backgroundColor);
+            height: 100%;
+            margin: 0;
+            padding: 2vh;
+            width: 100%;
+        }
+
+        .textArea {
+            width: 70%;
+            height: 90%;
+            position: absolute;
+            top: 53%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0);
+            border: none;
+            color: white;
+            font-size: var(--fontSize);
+            cursor: text;
+            outline: none;
+            overflow: scroll;
+        }
+
+        .h1,
+        .h2,
+        .h3,
+        .h4,
+        .h5,
+        .h6 {
+            font-weight: bold;
+        }
+
+        /* # */
+        .h1 {
+            font-size: var(--H1fontSize);
+            color: var(--blue);
+        }
+
+        /* ## */
+        .h2 {
+            font-size: var(--H2fontSize);
+            color: var(--bluegreen);
+        }
+
+        /* ### */
+        .h3 {
+            font-size: var(--H3fontSize);
+            color: var(--yellow);
+        }
+
+        /* #### */
+        .h4 {
+            font-size: var(--H4fontSize);
+            color: var(--orange);
+        }
+
+        /* ##### */
+        .h5 {
+            font-size: var(--H5fontSize);
+            color: var(--red);
+        }
+
+        /*  **  */
+        .bold {
+            font-weight: bold;
+        }
+
+        /*  *  */
+        .italic {
+            font-style: italic;
+        }
+
+        /* [[]] */
+        a {
+            color: var(--pink);
+        }
+
+        .bubble {
+            padding: 1.5vh;
+            background-color: var(--evenLighterBackground);
+            border: none;
+            border-radius: 10px 10px 10px 0px;
+            font-size: 2vh;
+            width: fit-content;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .bubble:hover {
+            padding: 1.7vh;
+        }
+
+        .chat {
+            font-size: 2vh;
+            margin-top: 2vh;
+            background-color: rgba(255, 255, 255, 0.03);
+            padding: 2vh;
+            border: none;
+            border-radius: 2vh;
+            /*box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);*/
+            transition: all 0.3s ease;
+        }
+
+        .chat:hover {
+            padding: 2.2vh;
+        }
+
+        .subchat {
+            margin-top: 0.5vh;
+        }
+
+        .log {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 2.2vh;
+            background-color: rgba(128, 200, 255, 0.05);
+            border: solid 1px rgba(255, 255, 255, 0.5);
+        }
+
+        .error {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 2.2vh;
+            background-color: rgba(255, 128, 128, 0.05);
+            border: solid 1px rgba(255, 128, 128, 0.5);
+        }
+
+        .senderInfo {
+            margin-bottom: 0;
+        }
+
+        .senderPicture {
+            width: 3vh;
+            border: none;
+            border-radius: 2px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .senderText {
+            font-size: 2vh;
+            font-weight: bold;
+            position: relative;
+            bottom: 0.8vh;
+            margin-right: 2vh;
+            color: var(--blue);
+            cursor: pointer;
+        }
+
+        .miniName {
+            float: left;
+            opacity: 50%;
+            font-size: 18px;
+        }
+
+        .sendTime {
+            font-size: 1.8vh;
+            font-weight: normal;
+            position: relative;
+            bottom: 0.8vh;
+        }
+
+        .miniTime {
+            float: right;
+            opacity: 50%;
+            font-size: 18px;
+        }
+
+        #messages {
+            height: 84%;
+            padding-left: 2%;
+            padding-right: 2%;
+            overflow: scroll;
+            margin-bottom: 1vh;
+        }
+
+        #inputArea {
+            display: flex;
+        }
+
+        #textInput {
+            resize: none;
+            flex: 1;
+            font-size: 2vh;
+            font-family: sans-serif;
+            height: 2.5vh;
+            padding: 1.5vh;
+            background-color: var(--evenLighterBackground);
+            margin: 0;
+            border: none;
+            border-radius: 10px 0px 0px 10px;
+            color: white;
+            outline: none;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+            overflow: scroll;
+        }
+
+        #inputArea button {
+            height: 5.5vh;
+            padding: 0;
+            margin: 0;
+            aspect-ratio: 1;
+            background-color: rgb(42, 94, 96);
+            color: white;
+            border: none;
+            border-radius: 0px 10px 10px 0px;
+            font-size: 36px;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        .panel {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%;
+            height: 50%;
+            padding: 4vh;
+            background-color: var(--lighterBackground);
+            border: solid 2px var(--cadet);
+            border-radius: 3vh;
+            text-align: center;
+            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        input,
+        #loginButton {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 2.5vh;
+            padding: 1vh;
+            border: solid 2px black;
+            border-radius: 6px;
+            outline: none;
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        input[type=submit],
+        #loginButton {
+            background-color: var(--cadet);
+            color: black;
+            border-width: 3px;
+            padding-left: 2vh;
+            padding-right: 2vh;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            filter: brightness(120%);
+        }
+
+        input[type=submit]:active {
+            filter: brightness(110%);
+        }
+    </style>
+    <script src="https://ratlabstudio.github.io/JavaScript/chat/markdown.js"></script>
+    <!-- Adds markdown detection to the messages -->
+</head>
+
+<body>
+    <div id="ribbon">
+        <button class="windowButton" style="background-color: var(--red);" onclick="logOut()"></button>
+        <button class="windowButton" style="background-color: var(--yellow);"></button>
+        <button class="windowButton" style="background-color: var(--bluegreen);"></button>
+        <p style="position: relative; top: -15%; margin-left: 120px; transform: translateY(-50%); font-size: 14px;">Rat
+            Lab Studio 2023</p>
+    </div>
+    <div id="page" style="filter: blur(10px);">
+        <div id="sidebar">
+            <br><br><br>
+            <h2 style="margin-bottom: 10px;"><a href="https://ratlabstudio.com" style="color: rgb(108, 224, 228);">Rat
+                    Lab
+                    Studio</a></h2>
+            <h2 style="font-weight: normal;">Chat App</h2>
+            <br>
+            <p>Prototype v2.0</p>
+            <br><br>
+            <h2>Markdown:</h2>
+            <ul style="transform: translateX(-10px);">
+                <li style="color: var(--blue); cursor: pointer;" onclick="input.innerHTML += '#';"># Heading 1</li>
+                <li style="color: var(--bluegreen); cursor: pointer;" onclick="input.innerHTML += '##';">## Heading 2
+                </li>
+                <li style="color: var(--yellow); cursor: pointer;" onclick="input.innerHTML += '###';">### Heading 3
+                </li>
+                <li style="font-style: italic; cursor: pointer;" onclick="input.innerHTML += '*Italic text here*';">*
+                    Italic *</li>
+                <li style="font-weight: bold; cursor: pointer;" onclick="input.innerHTML += '**Bold text here**';">**
+                    Bold **</li>
+                <li style="font-style: italic; font-weight: bold; cursor: pointer;"
+                    onclick="input.innerHTML += '***Bold and Italic text here***';">*** Bold and Italic
+                    ***</li>
+                <li style="color: var(--blue); font-weight: bold; cursor: pointer;"
+                    onclick="input.innerHTML += `<iframe src='https:\/\/ratlabstudio.github.io/JavaScript/ratGui/apps/browser.html' width='720px' height='480px'></iframe>`">
+                    Browser</li>
+            </ul>
+            <br>
+            <h2>Servers:</h2>
+            <br>
+            <button onclick="currentServer = 1;">Alpha Test</button>
+            <br><br><br>
+            <button onclick="logOut()" style="background-color: var(--red);">Log Out</button>
+        </div>
+
+        <div id="documentBody">
+            <br><br><br>
+            <div id="messages"></div>
+            <div id="inputArea">
+                <textarea id="textInput"></textarea>
+                <button onclick="sendMessage()">></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" id="loginPanel">
+        <h1 style="color: var(--cadet);">Rat Lab Studio Chat</h1>
+        <br>
+        <h1 style="text-align: center;">Welcome! Please Log In Below:</h1>
+        <br>
+        <p>Accounts are currently request-given only.</p>
+        <br><br>
+        <!--<form autocomplete="on">-->
+        <br><br>
+        <input id="usernameInput" type="text" name="username" placeholder="Username">
+        <br><br>
+        <input id="passwordInput" type="password" name="password" placeholder="Password">
+        <br><br>
+        <button id="loginButton" onclick="loginButton()">Login</button>
+        <!--</form>-->
+    </div>
+
+    <script>
+        const messagesContainer = document.getElementById("messages");
+        const input = document.getElementById("textInput");
+        messagesContainer.addEventListener("DOMSubtreeModified", function () { // Scrolls messages to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        });
+        let currentServer = 1;
+
+        let messages = [];
+
+        let session = {
+            user: {
+                id: null,
+                username: null,
+                nickname: null,
+                password: null,
+                profile_picture: "http://ratlabstudio.com/wp-content/uploads/2023/07/favicon.png"
+            }
+        }
+
+        // Logs in automatically if there is a user in localstorage
+        if (localStorage.getItem("user") != null) {
+            session.user = JSON.parse(localStorage.getItem("user"));
+            document.getElementById("loginPanel").style.visibility = "hidden";
+            document.getElementById("page").style.filter = "";
+            getAllMessagesFromServer(currentServer);
+        }
+
+        // Removes the currently logged in user
+        function logOut() {
+            localStorage.clear();
+            window.location.reload();
+        }
+
+        async function loginButton() {
+            let user = await fetch(`/login/${document.getElementById("usernameInput").value}/${document.getElementById("passwordInput").value}`, { method: "GET" })
+                .then(response => response.text())
+                .then(text => JSON.parse(text))
+                .then(data => session.user = data)
+                .then(data => localStorage.setItem("user", JSON.stringify(data))) // Stores login info to localstorage
+                .then(document.getElementById("loginPanel").style.visibility = "hidden")
+                .then(document.getElementById("page").style.filter = "")
+        }
+
+        document.getElementById("passwordInput").addEventListener("keydown", function (e) {
+            if (e.key == "Enter")
+                loginButton();
+        });
+
+        function getDateString() {
+            let date = new Date();
+            let hours = date.getHours();
+
+            // Convert to 12-hour clock:
+            let suffix = "PM";
+            hours -= 12;
+            if (hours < 1) {
+                hours += 12;
+                suffix = "AM";
+            }
+            if (hours == 12) { // Fixes suffix for both 12:00 times
+                if (suffix == "AM")
+                    suffix = "PM";
+                else
+                    suffix = "AM";
+            }
+
+            let minutes = date.getMinutes();
+            if (minutes.toString().length < 2)
+                minutes = "0" + minutes; // Adds the 0 before single digit minutes
+            let month = date.getMonth();
+            let day = date.getDate()
+            let year = (date.getFullYear() + "").substring(2);
+            return `${month}/${day}/${year} ${hours}:${minutes} ${suffix}`;
+        }
+
+        function displayMessage(message, user) {
+            if (messages.length > 0 && user.username == messages[messages.length - 1].senderId) {
+                //messages[messages.length - 1].element.innerHTML += "<br><br>" + convertToMarkdown(message);
+                messagesContainer.innerHTML += `
+                <div class="chat subchat" id="message${messages.length}">
+                    <div style="margin-bottom: 10px;">
+                        <span class="miniName">${user.nickname}</span>
+                        <span class="miniTime">${getDateString()}</span>
+                    </div>
+                    <br>
+                    ${convertToMarkdown(message)}
+                </div>`;
+                messages.push({
+                    senderId: user.username,
+                    element: document.getElementById(`message${messages.length}`)
+                });
+            }
+            else {
+                messagesContainer.innerHTML += `
+                <div class="chat" id="message${messages.length}">
+                    <div class="senderInfo">
+                        <img class="senderPicture" src="${user.profile_picture}">
+                        <span class="senderText">${user.nickname}</span>
+                        <span class="sendTime">${getDateString()}</span>
+                    </div>
+                    <br>
+                    ${convertToMarkdown(message)}
+                </div>`;
+            }
+            messages.push({
+                senderId: user.username,
+                element: document.getElementById(`message${messages.length}`)
+            });
+        }
+
+        function log(text) {
+            messagesContainer.innerHTML += `
+            <div class="chat log">
+                <div class="senderInfo">
+                    <img class="senderPicture" src="http://ratlabstudio.com/wp-content/uploads/2023/07/favicon.png">
+                    <span class="senderText">Studio Console</span>
+                    <span class="sendTime">${getDateString()}</span>
+                </div>
+                <br>
+                ${convertToMarkdown(text)}
+            </div>`;
+        }
+
+        function error(text) {
+            messagesContainer.innerHTML += `
+            <div class="chat error">
+                <div class="senderInfo">
+                    <img class="senderPicture" src="http://ratlabstudio.com/wp-content/uploads/2023/07/favicon.png">
+                    <span class="senderText">Studio Console</span>
+                    <span class="sendTime">${getDateString()}</span>
+                </div>
+                <br>
+                <span style="color: rgb(255, 128, 128);">An error occurred:</span>
+                <br><br>
+                ${text}
+            </div>`;
+        }
+
+        let keys = [];
+        input.addEventListener("keydown", function (e) {
+            keys[e.keyCode] = true;
+            if (e.key == "Enter" && keys[16])
+                input.value += "<br>";
+            else if (e.key == "Enter") {
+                e.preventDefault(); // Ensures the textarea will not have an extra blank line after hitting Enter
+                //testMessage();
+                sendMessage();
+            }
+        });
+        input.addEventListener("keyup", function (e) {
+            keys[e.keyCode] = false;
+        });
+        function testMessage() {
+            if (input.value.length <= 0)
+                return;
+            displayMessage(input.value, session.user);
+            input.value = "";
+        }
+
+        window.onerror = function (e, url, line) {
+            error(e);
+        }
+
+        async function getUserFromId(id) {
+            let response = await fetch(`/getUser/${id}`, { method: "GET" })
+                .then(response => response.text())
+            return JSON.parse(response);
+        }
+
+        async function loadMessages(newMessages) {
+            messagesContainer.innerHTML = "";
+            messages = [];
+            for (let i = 0; i < newMessages.length; i++) {
+                displayMessage(newMessages[i].content, await getUserFromId(newMessages[i].sender_id));
+            }
+        }
+
+        let serverMessages = [];
+        async function getAllMessagesFromServer(serverId) {
+            if (session.user.id == null)
+                return;
+            await fetch(`/getAllMessagesFromServer/${serverId}`, { method: "GET" })
+                .then(response => response.text())
+                .then(text => JSON.parse(text))
+                .then(function (serverMessages) {
+                    if (serverMessages.length != document.getElementsByClassName("chat").length) {
+                        loadMessages(serverMessages);
+                    }
+                })
+        }
+
+        let textFixes = [
+            ["#", "~hashtag~"],
+            ["'", "~apostrophe~"],
+            ["?", "~questionMark~"],
+            ["<", "~leftAngleBracket~"],
+            [">", "~rightAngleBracket~"],
+            ['"', "~doubleQuotes~"],
+            ["&", "~ampersand~"],
+            ["%", "~percent~"],
+            ["/", "~slash~"],
+            [".", "~period~"],
+            ["$", "~dollarSign~"],
+            ["@", "~atSign~"]
+        ];
+
+        async function sendMessage() {
+            if (input.value.length <= 0)
+                return;
+            let message = input.value;
+            for (let i = 0; i < textFixes.length; i++)
+                message = message.replaceAll(textFixes[i][0], textFixes[i][1]);
+            input.value = "";
+            await fetch(`sendMessage/${currentServer}/${message}/${session.user.id}`, { method: "POST" })
+                .then(getAllMessagesFromServer(currentServer))
+        }
+
+        log("App running on *full-stack alpha server*");
+
+        setInterval(function () {
+            getAllMessagesFromServer(currentServer);
+        }, 5000)
+
+        /*displayMessage("##The *quick* brown fox *jumped* over the **lazy dog**.<br><br>According to ***all known laws of aviation***, there is no way a *bee* should be able to **fly**.", session.user);
+        displayMessage("###Welcome to the Rat Lab Studio!<br>This is a test for an upcoming Rat Lab project, which hasn't been named yet. It will be a cool chat app that allows you to use your own servers to chat with friends!", session.user);*/
+    </script>
+</body>
+
+</html>
