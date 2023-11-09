@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat | Rat Lab Studio</title>
+    <link rel="favicon" href="http://ratlabstudio.com/wp-content/uploads/2023/07/favicon.png">
     <style>
         :root {
-            --cadet: rgb(105, 189, 192);
+            --cadet: rgb(95, 204, 207);
             --blue: rgb(22, 243, 255);
             --bluegreen: rgb(47, 255, 150);
             --yellow: rgb(244, 210, 72);
@@ -62,6 +63,7 @@
             background-color: var(--cadet);
             color: black;
             font-weight: bold;
+            transition: all 0.2s ease;
         }
 
         button:hover {
@@ -75,6 +77,7 @@
         #page {
             display: flex;
             height: 100%;
+            transition: all 0.5s ease;
         }
 
         #ribbon {
@@ -121,23 +124,7 @@
             height: 100%;
             margin: 0;
             padding: 2vh;
-            width: 100%;
-        }
-
-        .textArea {
-            width: 70%;
-            height: 90%;
-            position: absolute;
-            top: 53%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0);
-            border: none;
-            color: white;
-            font-size: var(--fontSize);
-            cursor: text;
-            outline: none;
-            overflow: scroll;
+            width: 90%;
         }
 
         .h1,
@@ -192,22 +179,11 @@
         /* [[]] */
         a {
             color: var(--pink);
+            transition: all 0.1s ease;
         }
 
-        .bubble {
-            padding: 1.5vh;
-            background-color: var(--evenLighterBackground);
-            border: none;
-            border-radius: 10px 10px 10px 0px;
-            font-size: 2vh;
-            width: fit-content;
-            margin-top: 10px;
-            transition: all 0.3s ease;
-            box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5);
-        }
-
-        .bubble:hover {
-            padding: 1.7vh;
+        a:hover {
+            filter: brightness(120%);
         }
 
         .chat {
@@ -222,7 +198,7 @@
         }
 
         .chat:hover {
-            padding: 2.2vh;
+            background-color: rgba(255, 255, 255, 0.06);
         }
 
         .subchat {
@@ -250,7 +226,7 @@
         .senderPicture {
             width: 3vh;
             border: none;
-            border-radius: 2px;
+            border-radius: 5px;
             margin-right: 10px;
             cursor: pointer;
         }
@@ -294,6 +270,7 @@
 
         #inputArea {
             display: flex;
+            margin-top: 40px;
         }
 
         #textInput {
@@ -318,13 +295,20 @@
             padding: 0;
             margin: 0;
             aspect-ratio: 1;
-            background-color: rgb(42, 94, 96);
+            background-color: rgb(46, 95, 97);
+            text-shadow: 2px 2px 4px black;
             color: white;
             border: none;
             border-radius: 0px 10px 10px 0px;
             font-size: 36px;
             box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
             transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        #inputArea button img {
+            width: 50%;
+            filter: invert();
         }
 
         .panel {
@@ -372,6 +356,51 @@
         input[type=submit]:active {
             filter: brightness(110%);
         }
+
+        .userDisplay {
+            display: flex;
+            margin-top: 10px;
+            background-color: rgba(255, 255, 255, 0.04);
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .userDisplay:hover {
+            background-color: rgba(255, 255, 255, 0.06);
+            ;
+        }
+
+        .online {
+            opacity: 100%;
+        }
+
+        .offline {
+            opacity: 25%;
+        }
+
+        .userDisplay img {
+            width: 24px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .userDisplay p {
+            font-size: 20px;
+            position: relative;
+            top: 2px;
+        }
+
+        #logout {
+            background-color: var(--red);
+            position: absolute;
+            bottom: 3vh;
+            left: 3vh;
+            padding: 1vh;
+        }
     </style>
     <script src="https://ratlabstudio.github.io/JavaScript/chat/markdown.js"></script>
     <!-- Adds markdown detection to the messages -->
@@ -379,11 +408,13 @@
 
 <body>
     <div id="ribbon">
-        <button class="windowButton" style="background-color: var(--red);" onclick="logOut()"></button>
-        <button class="windowButton" style="background-color: var(--yellow);"></button>
-        <button class="windowButton" style="background-color: var(--bluegreen);"></button>
-        <p style="position: relative; top: -15%; margin-left: 120px; transform: translateY(-50%); font-size: 14px;">Rat
-            Lab Studio 2023</p>
+        <button class="windowButton" style="background-color: var(--red);" onclick="logOut()" title="Log Out"></button>
+        <button class="windowButton" style="background-color: var(--yellow);" title="Nothing to see here!"></button>
+        <button class="windowButton" style="background-color: var(--bluegreen);" title="Shhhhh"></button>
+        <p style="position: relative; top: -15%; margin-left: 120px; transform: translateY(-50%); font-size: 14px;">
+            <a href="https://ratlabstudio.com" style="color: white; text-decoration: none;">Rat
+                Lab Studio 2023</a>
+        </p>
     </div>
     <div id="page" style="filter: blur(10px);">
         <div id="sidebar">
@@ -393,7 +424,15 @@
                     Studio</a></h2>
             <h2 style="font-weight: normal;">Chat App</h2>
             <br>
-            <p>Prototype v2.0</p>
+            <p>Prototype v2.1</p>
+            <br><br>
+            <h2>Users:</h2>
+            <div id="usersContainer">
+                <div class="userDisplay online">
+                    <img src="http://ratlabstudio.com/wp-content/uploads/2023/07/favicon.png">
+                    <p>Studio Console</p>
+                </div>
+            </div>
             <br><br>
             <h2>Markdown:</h2>
             <ul style="transform: translateX(-10px);">
@@ -414,19 +453,25 @@
                     Browser</li>
             </ul>
             <br>
-            <h2>Servers:</h2>
-            <br>
-            <button onclick="currentServer = 1;">Alpha Test</button>
-            <br><br><br>
-            <button onclick="logOut()" style="background-color: var(--red);">Log Out</button>
+            <div id="serverDisplay" style="visibility: hidden;">
+                <h2>Servers:</h2>
+                <br>
+                <button onclick="currentServer = 1;">Alpha Test</button>
+                <br><br>
+                <button onclick="currentServer = 2;">Alpha Test 2</button>
+            </div>
+            <button id="logout" onclick="logOut()">Log Out</button>
         </div>
 
         <div id="documentBody">
-            <br><br><br>
+            <br>
             <div id="messages"></div>
             <div id="inputArea">
                 <textarea id="textInput"></textarea>
-                <button onclick="sendMessage()">></button>
+                <button onclick="sendMessage()">
+                    <!--<img src="public/media/send.svg">-->
+                    >
+                </button>
             </div>
         </div>
     </div>
@@ -437,15 +482,12 @@
         <h1 style="text-align: center;">Welcome! Please Log In Below:</h1>
         <br>
         <p>Accounts are currently request-given only.</p>
-        <br><br>
-        <!--<form autocomplete="on">-->
-        <br><br>
+        <br><br><br><br>
         <input id="usernameInput" type="text" name="username" placeholder="Username">
         <br><br>
         <input id="passwordInput" type="password" name="password" placeholder="Password">
         <br><br>
         <button id="loginButton" onclick="loginButton()">Login</button>
-        <!--</form>-->
     </div>
 
     <script>
@@ -468,11 +510,29 @@
             }
         }
 
+        function resize() {
+            if (window.innerWidth <= 600) {
+                document.getElementById("sidebar").style.visibility = "hidden";
+                document.getElementById("sidebar").style.position = "absolute";
+                document.getElementById("page").style.display = "unset";
+            }
+            else {
+                document.getElementById("sidebar").style.visibility = "unset";
+                document.getElementById("sidebar").style.position = "unset";
+                document.getElementById("page").style.display = "flex";
+            }
+        }
+        resize();
+        window.addEventListener("resize", function () {
+            resize();
+        });
+
         // Logs in automatically if there is a user in localstorage
         if (localStorage.getItem("user") != null) {
             session.user = JSON.parse(localStorage.getItem("user"));
             document.getElementById("loginPanel").style.visibility = "hidden";
             document.getElementById("page").style.filter = "";
+            document.getElementById("user" + session.user.id).style.border = "solid 1px rgba(255,255,255,0.25)";
             getAllMessagesFromServer(currentServer);
         }
 
@@ -483,13 +543,24 @@
         }
 
         async function loginButton() {
-            let user = await fetch(`/login/${document.getElementById("usernameInput").value}/${document.getElementById("passwordInput").value}`, { method: "GET" })
+            let username = document.getElementById("usernameInput").value;
+            let password = document.getElementById("passwordInput").value;
+            if (username.length < 1 || password.length < 1)
+                return;
+            let user = await fetch(`/login/${username}/${password}`, { method: "GET" })
                 .then(response => response.text())
-                .then(text => JSON.parse(text))
-                .then(data => session.user = data)
-                .then(data => localStorage.setItem("user", JSON.stringify(data))) // Stores login info to localstorage
-                .then(document.getElementById("loginPanel").style.visibility = "hidden")
-                .then(document.getElementById("page").style.filter = "")
+                .then(function (response) {
+                    if (response.length < 1) {
+                        alert("Incorrect username or password!");
+                        return;
+                    }
+                    let data = JSON.parse(response);
+                    session.user = data;
+                    localStorage.setItem("user", JSON.stringify(data)); // Stores login info to localstorage
+                    document.getElementById("loginPanel").style.visibility = "hidden";
+                    document.getElementById("page").style.filter = "";
+                    document.getElementById("user" + session.user.id).style.border = "solid 1px rgba(255,255,255,0.25)";
+                });
         }
 
         document.getElementById("passwordInput").addEventListener("keydown", function (e) {
@@ -497,7 +568,7 @@
                 loginButton();
         });
 
-        function getDateString() {
+        function getDate() {
             let date = new Date();
             let hours = date.getHours();
 
@@ -521,18 +592,41 @@
             let month = date.getMonth();
             let day = date.getDate()
             let year = (date.getFullYear() + "").substring(2);
-            return `${month}/${day}/${year} ${hours}:${minutes} ${suffix}`;
+            return {
+                month: month,
+                day: day,
+                year: year,
+                hours: hours,
+                minutes: minutes,
+                suffix: suffix
+            };
+        }
+
+        function getDateSerial() {
+            let date = getDate();
+            return `${date.month}-${date.day}-${date.year}-${date.hours}-${date.minutes}-${date.suffix}`;
+        }
+
+        function getDateStringFromSerial(serialDate) {
+            let arr = serialDate.split("-");
+            return `${arr[0]}/${arr[1]}/${arr[2]} ${arr[3]}:${arr[4]} ${arr[5]}`;
+        }
+
+        function getDateString() {
+            let d = getDate();
+            return `${d.month}/${d.day}/${d.year} ${d.hours}:${d.minutes} ${d.suffix}`;
         }
 
         // Adds a message visually to the page
-        function displayMessage(message, user) {
+        function displayMessage(message, user, messageId, date) {
+            date = getDateStringFromSerial(date);
             if (messages.length > 0 && user.username == messages[messages.length - 1].senderId) {
                 //messages[messages.length - 1].element.innerHTML += "<br><br>" + convertToMarkdown(message);
                 messagesContainer.innerHTML += `
-                <div class="chat subchat" id="message${messages.length}">
+                <div class="chat subchat" id="message${messageId}">
                     <div style="margin-bottom: 10px;">
                         <span class="miniName">${user.nickname}</span>
-                        <span class="miniTime">${getDateString()}</span>
+                        <span class="miniTime">${date}</span>
                     </div>
                     <br>
                     ${convertToMarkdown(message)}
@@ -544,11 +638,11 @@
             }
             else {
                 messagesContainer.innerHTML += `
-                <div class="chat" id="message${messages.length}">
+                <div class="chat" id="message${messageId}">
                     <div class="senderInfo">
                         <img class="senderPicture" src="${user.profile_picture}">
                         <span class="senderText">${user.nickname}</span>
-                        <span class="sendTime">${getDateString()}</span>
+                        <span class="sendTime">${date}</span>
                     </div>
                     <br>
                     ${convertToMarkdown(message)}
@@ -596,19 +690,12 @@
                 input.value += "<br>";
             else if (e.key == "Enter") {
                 e.preventDefault(); // Ensures the textarea will not have an extra blank line after hitting Enter
-                //testMessage();
                 sendMessage();
             }
         });
         input.addEventListener("keyup", function (e) {
             keys[e.keyCode] = false;
         });
-        function testMessage() {
-            if (input.value.length <= 0)
-                return;
-            displayMessage(input.value, session.user);
-            input.value = "";
-        }
 
         window.onerror = function (e, url, line) {
             error(e);
@@ -620,11 +707,18 @@
             return JSON.parse(response);
         }
 
-        async function loadMessages(newMessages) {
+        const maxMessages = 15;
+
+        async function loadAllMessages(newMessages) {
             messagesContainer.innerHTML = "";
             messages = [];
-            for (let i = 0; i < newMessages.length; i++) {
-                displayMessage(newMessages[i].content, await getUserFromId(newMessages[i].sender_id));
+            // Show only the last 15 messages for performance
+            let earliestMessage = newMessages.length - maxMessages;
+            if (earliestMessage < 0)
+                earliestMessage = 0;
+
+            for (let i = earliestMessage; i < newMessages.length; i++) {
+                displayMessage(newMessages[i].content, await getUserFromId(newMessages[i].sender_id), newMessages[i].id, newMessages[i].date);
             }
         }
 
@@ -637,9 +731,29 @@
                 .then(text => JSON.parse(text))
                 .then(function (serverMessages) {
                     if (serverMessages.length != document.getElementsByClassName("chat").length) {
-                        loadMessages(serverMessages);
+                        loadAllMessages(serverMessages);
                     }
-                })
+                });
+        }
+
+        async function loadMessage(newMessage) {
+            displayMessage(newMessage.content, await getUserFromId(newMessage.sender_id), newMessage.id, newMessage.date);
+        }
+
+        async function getNewMessagesFromServer(serverId) {
+            if (session.user.id == null)
+                return;
+            // Gets the last displayed message ID:
+            let id = document.getElementsByClassName("chat")[document.getElementsByClassName("chat").length - 1].id.replace("message", "") * 1;
+            id++;
+            await fetch(`/getMessagesFromServerStartingWithId/${serverId}/${id}`, { method: "GET" })
+                .then(response => response.text())
+                .then(text => JSON.parse(text))
+                .then(function (serverMessages) {
+                    for (let i = 0; i < serverMessages.length; i++) {
+                        loadMessage(serverMessages[i]);
+                    }
+                });
         }
 
         let textFixes = [
@@ -658,24 +772,48 @@
         ];
 
         async function sendMessage() {
-            if (input.value.length <= 0)
+            if (input.value.length <= 0 || session.user.id < 1)
                 return;
             let message = input.value;
             for (let i = 0; i < textFixes.length; i++)
                 message = message.replaceAll(textFixes[i][0], textFixes[i][1]);
             input.value = "";
-            await fetch(`sendMessage/${currentServer}/${message}/${session.user.id}`, { method: "POST" })
-                .then(getAllMessagesFromServer(currentServer))
+            await fetch(`sendMessage/${currentServer}/${message}/${session.user.id}/${getDateSerial()}`, { method: "POST" })
+                .then(getNewMessagesFromServer(currentServer))
         }
 
-        log("App running on *full-stack alpha server*");
+        // Shows a list of all users in the users section
+        async function displayAllUsers() {
+            await fetch(`/getAllUsers`, { method: "GET" })
+                .then(response => response.text())
+                .then(text => JSON.parse(text))
+                .then(function (users) {
+                    let usersContainer = document.getElementById("usersContainer");
+                    usersContainer.innerHTML = "";
+                    for (let i = 1; i < users.length; i++) {
+                        usersContainer.innerHTML += `
+                        <div class="userDisplay online" id="user${users[i].id}">
+                            <img src="${users[i].profile_picture}">
+                            <p>${users[i].nickname}</p>
+                        </div>`;
+                    }
+                    document.getElementById("user" + session.user.id).style.border = "solid 1px rgba(255,255,255,0.25)";
+                });
+        }
 
+        log("App running on *Alpha v2.2 Server*");
+
+        // Frequent Update:
         setInterval(function () {
-            getAllMessagesFromServer(currentServer);
-        }, 5000)
+            getNewMessagesFromServer(currentServer);
+        }, 5000);
 
-        /*displayMessage("##The *quick* brown fox *jumped* over the **lazy dog**.<br><br>According to ***all known laws of aviation***, there is no way a *bee* should be able to **fly**.", session.user);
-        displayMessage("###Welcome to the Rat Lab Studio!<br>This is a test for an upcoming Rat Lab project, which hasn't been named yet. It will be a cool chat app that allows you to use your own servers to chat with friends!", session.user);*/
+        // Infrequent Update:
+        setInterval(function () {
+            displayAllUsers();
+        }, 20000);
+
+        displayAllUsers();
     </script>
 </body>
 
