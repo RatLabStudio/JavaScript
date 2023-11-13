@@ -25,25 +25,7 @@ function createGameBoard() {
                 if (winner != null && winner != undefined && winner != "")
                     return;
                 let id = event.target.id;
-                let space = document.getElementById(id);
-                if (space.style.backgroundColor == colors[0] || space.style.backgroundColor == colors[1])
-                    return;
-                let spacesInColumn = getSpacesInColumn(id[2]);
-                for (let i = spacesInColumn.length - 1; i >= 0; i--) {
-                    let isPopulated = false;
-                    for (let j = 0; j < colors.length; j++) {
-                        if (spacesInColumn[i].classList.length > 0)
-                            isPopulated = true;
-                    }
-                    if (isPopulated)
-                        continue;
-                    else {
-                        spacesInColumn[i].classList.add(turn);
-                        checkForWin();
-                        switchTurn();
-                        break;
-                    }
-                }
+                placeCoin(id);
             });
 
             spaces[spaces.length - 1].addEventListener("mouseover", function (event) {
@@ -60,6 +42,31 @@ function createGameBoard() {
                 }
             });
         }
+}
+
+function placeCoin(id) {
+    id = id.replace("coin", "");
+    let space = document.getElementById(id);
+    if (space.style.backgroundColor == colors[0] || space.style.backgroundColor == colors[1])
+        return;
+    let spacesInColumn = getSpacesInColumn(id[2]);
+    for (let i = spacesInColumn.length - 1; i >= 0; i--) {
+        let isPopulated = false;
+        for (let j = 0; j < colors.length; j++) {
+            if (spacesInColumn[i].classList.length > 0)
+                isPopulated = true;
+        }
+        if (isPopulated)
+            continue;
+        else {
+            spacesInColumn[i].classList.add(turn);
+            spacesInColumn[i].innerHTML = `<div id="coin${id}" class="coin ${turn}Coin"></div>`;
+            document.getElementById(`coin${id}`).style.bottom = "0px";
+            checkForWin();
+            switchTurn();
+            break;
+        }
+    }
 }
 
 function convert1Dto2D(index) {
