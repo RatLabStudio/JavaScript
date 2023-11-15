@@ -38,6 +38,8 @@ function createGameBoard() {
 
             // Hovering styles
             spaces[spaces.length - 1].addEventListener("mouseover", function (event) {
+                if (winner != "")
+                    return;
                 let columnSpaces = getSpacesInColumn(event.target.id[2]);
                 for (let c = 0; c < columnSpaces.length; c++) {
                     columnSpaces[c].style.filter = "brightness(150%)";
@@ -89,6 +91,9 @@ function convert2Dto1D(y, x) {
     return ((y * 1) * boardWidth) + (x * 1);
 }
 
+// DEBUG STUFF::
+let winningSpaces = [];
+
 // Checks if any player has won the game
 function checkForWin() {
     for (let i = 0; i < spaces.length; i++) {
@@ -101,13 +106,18 @@ function checkForWin() {
         // Horizontal:
         if (spaces[i].id[2] * 1 < boardWidth - (amountToWin - 1)) {
             let count = 1;
+            winningSpaces = [spaces[convert2Dto1D(y, x)]];
             for (let j = 1; j < amountToWin; j++) {
-                if (spaces[i].classList[0] == spaces[convert2Dto1D(y, x + j)].classList[0])
+                if (spaces[i].classList[0] == spaces[convert2Dto1D(y, x + j)].classList[0]) {
                     count++;
+                    winningSpaces.push(spaces[convert2Dto1D(y + j, x - j)]);
+                }
             }
             if (count >= amountToWin) {
                 winner = spaces[i].classList[0];
                 win();
+                console.log("Horizontal");
+                console.log(winningSpaces);
                 return;
             }
         }
@@ -115,42 +125,56 @@ function checkForWin() {
         // Vertical
         if (spaces[i].id[0] * 1 < boardHeight - (amountToWin - 1)) {
             let count = 1;
+            winningSpaces = [spaces[convert2Dto1D(y, x)]];
             for (let j = 1; j < amountToWin; j++) {
-                if (spaces[i].classList[0] == spaces[convert2Dto1D(y + j, x)].classList[0])
+                if (spaces[i].classList[0] == spaces[convert2Dto1D(y + j, x)].classList[0]) {
                     count++;
+                    winningSpaces.push(spaces[convert2Dto1D(y + j, x - j)]);
+                }
             }
             if (count >= amountToWin) {
                 winner = spaces[i].classList[0];
                 win();
+                console.log("Vertical");
+                console.log(winningSpaces);
                 return;
             }
         }
 
         // Diagonal Negative Slope
-        if (spaces[i].id[2] * 1 < boardWidth - (amountToWin - 1) && spaces[i].id[0] * 1 < boardHeight - (amountToWin - 1)) {
+        if (spaces[i].id[2] * 1 <= boardWidth - (amountToWin - 1) && spaces[i].id[0] < boardHeight - (amountToWin - 1)) {
             let count = 1;
+            winningSpaces = [spaces[convert2Dto1D(y, x)]];
             for (let j = 1; j < amountToWin; j++) {
-                if (spaces[i].classList[0] == spaces[convert2Dto1D(y + j, x + j)].classList[0])
+                if (spaces[i].classList[0] == spaces[convert2Dto1D(y + j, x + j)].classList[0]) {
                     count++;
+                    winningSpaces.push(spaces[convert2Dto1D(y + j, x - j)]);
+                }
             }
-            console.log(count)
             if (count >= amountToWin) {
                 winner = spaces[i].classList[0];
                 win();
+                console.log("Diagonal Negative Slope");
+                console.log(winningSpaces);
                 return;
             }
         }
 
         // Diagonal Positive Slope
-        if (spaces[i].id[2] * 1 < boardWidth + (amountToWin - 1) && spaces[i].id[0] * 1 < boardHeight - (amountToWin - 1)) {
+        if (spaces[i].id[2] * 1 >= amountToWin - 1 && spaces[i].id[0] * 1 < boardHeight - (amountToWin - 1)) {
             let count = 1;
+            winningSpaces = [spaces[convert2Dto1D(y, x)]];
             for (let j = 1; j < amountToWin; j++) {
-                if (spaces[i].classList[0] == spaces[convert2Dto1D(y + j, x - j)].classList[0])
+                if (spaces[i].classList[0] == spaces[convert2Dto1D(y + j, x - j)].classList[0]) {
                     count++;
+                    winningSpaces.push(spaces[convert2Dto1D(y + j, x - j)]);
+                }
             }
             if (count >= amountToWin) {
                 winner = spaces[i].classList[0];
                 win();
+                console.log("Diagonal Positive Slope");
+                console.log(winningSpaces);
                 return;
             }
         }
@@ -196,12 +220,20 @@ function sleep(ms) {
 function resetBoard() {
     document.getElementById("winnerPanel").style.visibility = "hidden"; // Hides the winner display panel
     document.getElementById("winnerDisplay").innerHTML = "Nobody Wins!"; // Default winner is nobody
-    for (let i = 0; i < spaces.length; i++) { // For every space
-        if (spaces[i].classList.length < 1)
-            continue;
-        document.getElementById("coin" + spaces[i].id).classList.add("falling"); // Add the falling animation
+    // Falling Animation
+    for (let i = 0; i < boardWidth; i++) {
+        let columnSpaces = getSpacesInColumn(i);
+        for (let j = 0; j < columnSpaces.length; j++) {
+            if (columnSpaces[j].classList.length > 0) {
+                for (let c = 0; c < columnSpaces.length; c++)
+                    columnSpaces[c].style.filter = "";
+                sleep(200 * i).then(() => {
+                    document.getElementById("coin" + columnSpaces[j].id).classList.add("falling"); // Add the falling animation
+                });
+            }
+        }
     }
-    sleep(1500).then(() => {
+    sleep(boardWidth * 300).then(() => {
         createGameBoard(); // Recreates the game board
     });
 }
