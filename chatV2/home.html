@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <meta name="viewport"
+        content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Chat | Rat Lab Studio</title>
+    <link rel="favicon" href="http://ratlabstudio.com/wp-content/uploads/2023/07/favicon.png">
+    <style>
+        :root {
+            --cadet: rgb(95, 204, 207);
+            --blue: rgb(22, 243, 255);
+            --bluegreen: rgb(47, 255, 150);
+            --yellow: rgb(244, 210, 72);
+            --orange: rgb(234, 150, 47);
+            --red: rgb(242, 102, 77);
+            --pink: rgb(244, 27, 244);
+            --backgroundColor: rgb(36, 36, 36);
+            --lighterBackground: rgb(43, 43, 43);
+            --evenLighterBackground: rgb(53, 53, 53);
+            --fontSize: 24px;
+            --H1fontSize: 40px;
+            --H2fontSize: 36px;
+            --H3fontSize: 30px;
+            --H4fontSize: 28px;
+            --H5fontSize: 26px;
+        }
+
+        html,
+        body {
+            background-color: var(--backgroundColor);
+            margin: 0;
+            padding: 0;
+            color: white;
+            font-family: sans-serif;
+            height: 100%;
+            overflow: hidden;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        .page {
+            overflow: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        button {
+            font-size: 18px;
+            padding: 5%;
+            border: solid 2px black;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: var(--cadet);
+            color: black;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            filter: brightness(120%);
+        }
+
+        button:active {
+            filter: brightness(140%);
+        }
+
+        #page {
+            display: flex;
+            height: 100%;
+            transition: all 0.5s ease;
+        }
+
+        #ribbon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background-color: var(--evenLighterBackground);
+            margin: 0;
+            z-index: 9;
+            cursor: pointer;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .windowButton {
+            width: 16px;
+            height: 16px;
+            padding: 0;
+            border: none;
+            position: relative;
+            top: 50%;
+            margin-left: 10px;
+            transform: translateY(-50%);
+        }
+
+        #sidebar {
+            position: unset;
+            top: 0;
+            left: 0;
+            width: 20%;
+            height: 100%;
+            margin: 0;
+            background-color: var(--lighterBackground);
+            padding: 0% 2% 0% 2%;
+            min-width: 200px;
+            max-width: 200px;
+            z-index: 1;
+            box-shadow: 4px 0px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        #documentBody {
+            background-color: var(--backgroundColor);
+            height: 100%;
+            margin: 0;
+            padding: 2vh;
+            width: 90%;
+            overflow: hidden;
+        }
+
+        .h1,
+        .h2,
+        .h3,
+        .h4,
+        .h5,
+        .h6 {
+            font-weight: bold;
+            line-height: 60px;
+        }
+
+        /* # */
+        .h1 {
+            font-size: var(--H1fontSize);
+            color: var(--blue);
+        }
+
+        /* ## */
+        .h2 {
+            font-size: var(--H2fontSize);
+            color: var(--bluegreen);
+        }
+
+        /* ### */
+        .h3 {
+            font-size: var(--H3fontSize);
+            color: var(--yellow);
+        }
+
+        /* #### */
+        .h4 {
+            font-size: var(--H4fontSize);
+            color: var(--orange);
+        }
+
+        /* ##### */
+        .h5 {
+            font-size: var(--H5fontSize);
+            color: var(--red);
+        }
+
+        /*  **  */
+        .bold {
+            font-weight: bold;
+        }
+
+        /*  *  */
+        .italic {
+            font-style: italic;
+        }
+
+        /* [[]] */
+        a {
+            color: var(--pink);
+            transition: all 0.1s ease;
+        }
+
+        a:hover {
+            filter: brightness(120%);
+        }
+
+        .chat {
+            font-size: 2vh;
+            margin-top: 2vh;
+            background-color: rgba(255, 255, 255, 0.03);
+            padding: 2vh;
+            border: none;
+            border-radius: 2vh;
+            /*box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);*/
+            transition: all 0.3s ease;
+        }
+
+        .chat:hover {
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .subchat {
+            margin-top: 0.5vh;
+        }
+
+        .log {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 2.2vh;
+            background-color: rgba(128, 200, 255, 0.05);
+            border: solid 1px rgba(255, 255, 255, 0.5);
+        }
+
+        .error {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 2.2vh;
+            background-color: rgba(255, 128, 128, 0.05);
+            border: solid 1px rgba(255, 128, 128, 0.5);
+        }
+
+        .senderInfo {
+            margin-bottom: 0;
+        }
+
+        .senderPicture {
+            width: 3vh;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .senderText {
+            font-size: 2vh;
+            font-weight: bold;
+            position: relative;
+            bottom: 0.8vh;
+            margin-right: 2vh;
+            color: var(--blue);
+            cursor: pointer;
+        }
+
+        .miniName {
+            float: left;
+            opacity: 50%;
+            font-size: 18px;
+        }
+
+        .sendTime {
+            font-size: 1.8vh;
+            font-weight: normal;
+            position: relative;
+            bottom: 0.8vh;
+        }
+
+        .miniTime {
+            float: right;
+            opacity: 50%;
+            font-size: 18px;
+        }
+
+        #messages {
+            height: 84%;
+            padding-left: 2%;
+            padding-right: 2%;
+            overflow: scroll;
+            margin-bottom: 1vh;
+        }
+
+        #inputArea {
+            display: flex;
+            margin-top: 40px;
+        }
+
+        #textInput {
+            resize: none;
+            flex: 1;
+            font-size: 2vh;
+            font-family: sans-serif;
+            height: 2.5vh;
+            padding: 1.5vh;
+            background-color: var(--evenLighterBackground);
+            margin: 0;
+            border: none;
+            border-radius: 10px 0px 0px 10px;
+            color: white;
+            outline: none;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+            overflow: scroll;
+        }
+
+        #inputArea button {
+            height: 5.5vh;
+            padding: 0;
+            margin: 0;
+            aspect-ratio: 1;
+            background-color: rgb(46, 95, 97);
+            text-shadow: 2px 2px 4px black;
+            color: white;
+            border: none;
+            border-radius: 0px 10px 10px 0px;
+            font-size: 36px;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        #inputArea button img {
+            width: 50%;
+            filter: invert();
+        }
+
+        .panel {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%;
+            height: 50%;
+            padding: 4vh;
+            background-color: var(--lighterBackground);
+            border: solid 2px var(--cadet);
+            border-radius: 3vh;
+            text-align: center;
+            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        input,
+        #loginButton {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 2.5vh;
+            padding: 1vh;
+            border: solid 2px black;
+            border-radius: 6px;
+            outline: none;
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        input[type=submit],
+        #loginButton {
+            background-color: var(--cadet);
+            color: black;
+            border-width: 3px;
+            padding-left: 2vh;
+            padding-right: 2vh;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            filter: brightness(120%);
+        }
+
+        input[type=submit]:active {
+            filter: brightness(110%);
+        }
+
+        .userDisplay {
+            display: flex;
+            margin-top: 10px;
+            background-color: rgba(255, 255, 255, 0.04);
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .userDisplay:hover {
+            background-color: rgba(255, 255, 255, 0.06);
+            ;
+        }
+
+        .online {
+            opacity: 100%;
+        }
+
+        .offline {
+            opacity: 25%;
+        }
+
+        .userDisplay img {
+            width: 24px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .userDisplay p {
+            font-size: 20px;
+            position: relative;
+            top: 2px;
+        }
+
+        #logout {
+            background-color: var(--red);
+            position: absolute;
+            bottom: 3vh;
+            left: 3vh;
+            padding: 1vh;
+        }
+
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+    <script src="https://ratlabstudio.github.io/JavaScript/chat/markdown.js"></script>
+    <!-- Adds markdown detection to the messages -->
+</head>
+
+<body>
+    <div id="ribbon">
+        <button class="windowButton" style="background-color: var(--red);" onclick="logOut()" title="Log Out"></button>
+        <button class="windowButton" style="background-color: var(--yellow);" title="Nothing to see here!"></button>
+        <button class="windowButton" style="background-color: var(--bluegreen);" title="Shhhhh"></button>
+        <p style="position: relative; top: -15%; margin-left: 120px; transform: translateY(-50%); font-size: 14px;">
+            <a href="https://ratlabstudio.com" style="color: white; text-decoration: none;">Rat
+                Lab Studio 2023</a>
+        </p>
+    </div>
+    <div id="page" style="filter: blur(10px);">
+        <div id="sidebar">
+            <br><br><br>
+            <h2 style="margin-bottom: 10px;"><a href="https://ratlabstudio.com" style="color: rgb(108, 224, 228);">Rat
+                    Lab
+                    Studio</a></h2>
+            <h2 style="font-weight: normal;">Chat App</h2>
+            <br>
+            <p>Prototype v2.2</p>
+            <br><br>
+            <h2>Users:</h2>
+            <div id="usersContainer">
+                <div class="userDisplay online">
+                    <img src="http://ratlabstudio.com/wp-content/uploads/2023/07/favicon.png">
+                    <p>Studio Console</p>
+                </div>
+            </div>
+            <br><br>
+            <h2>Markdown:</h2>
+            <ul style="transform: translateX(-10px);">
+                <li style="color: var(--blue); cursor: pointer;" onclick="input.innerHTML += '#';"># Heading 1</li>
+                <li style="color: var(--bluegreen); cursor: pointer;" onclick="input.innerHTML += '##';">## Heading 2
+                </li>
+                <li style="color: var(--yellow); cursor: pointer;" onclick="input.innerHTML += '###';">### Heading 3
+                </li>
+                <li style="font-style: italic; cursor: pointer;" onclick="input.innerHTML += '*Italic text here*';">*
+                    Italic *</li>
+                <li style="font-weight: bold; cursor: pointer;" onclick="input.innerHTML += '**Bold text here**';">**
+                    Bold **</li>
+                <li style="font-style: italic; font-weight: bold; cursor: pointer;"
+                    onclick="input.innerHTML += '***Bold and Italic text here***';">*** Bold and Italic
+                    ***</li>
+                <li style="color: var(--blue); font-weight: bold; cursor: pointer;"
+                    onclick="input.innerHTML += `<iframe src='https:\/\/ratlabstudio.github.io/JavaScript/ratGui/apps/browser.html' width='720px' height='480px'></iframe>`">
+                    Browser</li>
+            </ul>
+            <br>
+            <div id="serverDisplay" style="visibility: unset;">
+                <h2>Servers:</h2>
+                <div id="serversContainer"></div>
+            </div>
+            <button id="logout" onclick="logOut()">Log Out</button>
+        </div>
+
+        <div id="documentBody">
+            <br>
+            <div id="loading" style="visibility: hidden;">
+                <h1>Loading...</h1>
+            </div>
+            <div id="messages" style="visibility: unset;"></div>
+            <div id="inputArea">
+                <textarea id="textInput"></textarea>
+                <button onclick="sendMessage()">
+                    <!--<img src="public/media/send.svg">-->
+                    >
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" id="loginPanel">
+        <h1 style="color: var(--cadet);">Rat Lab Studio Chat</h1>
+        <br>
+        <h1 style="text-align: center;">Welcome! Please Log In Below:</h1>
+        <br>
+        <p>Accounts are currently request-given only.</p>
+        <br><br><br><br>
+        <input id="usernameInput" type="text" name="username" placeholder="Username">
+        <br><br>
+        <input id="passwordInput" type="password" name="password" placeholder="Password">
+        <br><br>
+        <button id="loginButton" onclick="loginButton()">Login</button>
+    </div>
+
+    <script>
+        const messagesContainer = document.getElementById("messages");
+        const input = document.getElementById("textInput");
+        input.focus({
+            preventScroll: true,
+        });
+        messagesContainer.addEventListener("DOMSubtreeModified", function () { // Scrolls messages to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        });
+        let currentServer = 1;
+
+        let messages = [];
+
+        let session = {
+            user: {
+                id: null,
+                username: null,
+                nickname: null,
+                password: null,
+                profile_picture: "http://ratlabstudio.com/wp-content/uploads/2023/07/favicon.png"
+            }
+        }
+
+        function resize() {
+            if (window.innerWidth <= 600) { // Phones
+                document.getElementById("sidebar").style.visibility = "hidden";
+                document.getElementById("sidebar").style.position = "absolute";
+                document.getElementById("page").style.display = "unset";
+                document.getElementById("documentBody").style.height = "92%";
+                document.getElementById("loginPanel").style.width = "80%";
+                document.getElementById("loginPanel").style.height = "80%";
+            }
+            else { // Not Phones
+                document.getElementById("sidebar").style.visibility = "unset";
+                document.getElementById("sidebar").style.position = "unset";
+                document.getElementById("page").style.display = "flex";
+                document.getElementById("documentBody").style.height = "100%";
+                document.getElementById("loginPanel").style.width = "50%";
+                document.getElementById("loginPanel").style.height = "50%";
+            }
+        }
+        resize();
+        window.addEventListener("resize", function () {
+            resize();
+        });
+
+        // Logs in automatically if there is a user in localstorage
+        if (localStorage.getItem("user") != null) {
+            session.user = JSON.parse(localStorage.getItem("user"));
+            document.getElementById("loginPanel").style.visibility = "hidden";
+            document.getElementById("page").style.filter = "";
+            getAllMessagesFromServer(currentServer);
+        }
+
+        // Removes the currently logged in user
+        function logOut() {
+            localStorage.clear();
+            window.location.reload();
+        }
+
+        async function loginButton() {
+            let username = document.getElementById("usernameInput").value;
+            let password = document.getElementById("passwordInput").value;
+            if (username.length < 1 || password.length < 1)
+                return;
+            let user = await fetch(`/login/${username}/${password}`, { method: "GET" })
+                .then(response => response.text())
+                .then(function (response) {
+                    if (response.length < 1) {
+                        alert("Incorrect username or password!");
+                        return;
+                    }
+                    let data = JSON.parse(response);
+                    session.user = data;
+                    localStorage.setItem("user", JSON.stringify(data)); // Stores login info to localstorage
+                    document.getElementById("loginPanel").style.visibility = "hidden";
+                    document.getElementById("page").style.filter = "";
+                });
+        }
+
+        function changeServer(serverId) {
+            currentServer = serverId;
+            getAllMessagesFromServer(currentServer)
+        }
+
+        document.getElementById("passwordInput").addEventListener("keydown", function (e) {
+            if (e.key == "Enter")
+                loginButton();
+        });
+
+        function getDate() {
+            let date = new Date();
+            let hours = date.getHours();
+
+            // Convert to 12-hour clock:
+            let suffix = "PM";
+            hours -= 12;
+            if (hours < 1) {
+                hours += 12;
+                suffix = "AM";
+            }
+            if (hours == 12) { // Fixes suffix for both 12:00 times
+                if (suffix == "AM")
+                    suffix = "PM";
+                else
+                    suffix = "AM";
+            }
+
+            let minutes = date.getMinutes();
+            if (minutes.toString().length < 2)
+                minutes = "0" + minutes; // Adds the 0 before single digit minutes
+            let month = date.getMonth();
+            let day = date.getDate()
+            let year = (date.getFullYear() + "").substring(2);
+            return {
+                month: month,
+                day: day,
+                year: year,
+                hours: hours,
+                minutes: minutes,
+                suffix: suffix
+            };
+        }
+
+        function getDateSerial() {
+            let date = getDate();
+            return `${date.month}-${date.day}-${date.year}-${date.hours}-${date.minutes}-${date.suffix}`;
+        }
+
+        function getDateStringFromSerial(serialDate) {
+            let arr = serialDate.split("-");
+            return `${arr[0]}/${arr[1]}/${arr[2]} ${arr[3]}:${arr[4]} ${arr[5]}`;
+        }
+
+        function getDateString() {
+            let d = getDate();
+            return `${d.month}/${d.day}/${d.year} ${d.hours}:${d.minutes} ${d.suffix}`;
+        }
+
+        // Adds a message visually to the page
+        function displayMessage(message, user, messageId, date) {
+            date = getDateStringFromSerial(date);
+            if (messages.length > 0 && user.username == messages[messages.length - 1].senderId) {
+                //messages[messages.length - 1].element.innerHTML += "<br><br>" + convertToMarkdown(message);
+                messagesContainer.innerHTML += `
+                <div class="chat subchat" id="message${messageId}">
+                    <div style="margin-bottom: 10px;">
+                        <span class="miniName">${user.nickname}</span>
+                        <span class="miniTime">${date}</span>
+                    </div>
+                    <br>
+                    ${convertToMarkdown(message)}
+                </div>`;
+                messages.push({
+                    senderId: user.username,
+                    element: document.getElementById(`message${messages.length}`)
+                });
+            }
+            else {
+                messagesContainer.innerHTML += `
+                <div class="chat" id="message${messageId}">
+                    <div class="senderInfo">
+                        <img class="senderPicture" src="${user.profile_picture}">
+                        <span class="senderText">${user.nickname}</span>
+                        <span class="sendTime">${date}</span>
+                    </div>
+                    <br>
+                    ${convertToMarkdown(message)}
+                </div>`;
+            }
+            messages.push({
+                senderId: user.username,
+                element: document.getElementById(`message${messages.length}`)
+            });
+        }
+
+        // Displays a visual message from the console on the page
+        function log(text) {
+            messagesContainer.innerHTML += `
+            <div class="chat log">
+                <div class="senderInfo">
+                    <img class="senderPicture" src="http://ratlabstudio.com/wp-content/uploads/2023/07/favicon.png">
+                    <span class="senderText">Studio Console</span>
+                    <span class="sendTime">${getDateString()}</span>
+                </div>
+                <br>
+                ${convertToMarkdown(text)}
+            </div>`;
+        }
+
+        function error(text) {
+            messagesContainer.innerHTML += `
+            <div class="chat error">
+                <div class="senderInfo">
+                    <img class="senderPicture" src="http://ratlabstudio.com/wp-content/uploads/2023/07/favicon.png">
+                    <span class="senderText">Studio Console</span>
+                    <span class="sendTime">${getDateString()}</span>
+                </div>
+                <br>
+                <span style="color: rgb(255, 128, 128);">An error occurred:</span>
+                <br><br>
+                ${text}
+            </div>`;
+        }
+
+        let keys = [];
+        input.addEventListener("keydown", function (e) {
+            keys[e.keyCode] = true;
+            if (e.key == "Enter" && keys[16])
+                input.value += "<br>";
+            else if (e.key == "Enter") {
+                e.preventDefault(); // Ensures the textarea will not have an extra blank line after hitting Enter
+                sendMessage();
+            }
+        });
+        input.addEventListener("keyup", function (e) {
+            keys[e.keyCode] = false;
+        });
+
+        window.onerror = function (e, url, line) {
+            error(e);
+        }
+
+        async function getUserFromId(id) {
+            let response = await fetch(`/getUser/${id}`, { method: "GET" })
+                .then(response => response.text())
+            return JSON.parse(response);
+        }
+
+        const maxMessages = 20;
+
+        async function loadAllMessages(newMessages) {
+            messagesContainer.style.visibility = "hidden";
+            document.getElementById("loading").style.visibility = "unset";
+            messagesContainer.innerHTML = "";
+            messages = [];
+            // Show only the last ${maxMessages} messages for performance
+            let earliestMessage = newMessages.length - maxMessages;
+            if (earliestMessage < 0)
+                earliestMessage = 0;
+
+            for (let i = earliestMessage; i < newMessages.length; i++) {
+                displayMessage(newMessages[i].content, await getUserFromId(newMessages[i].sender_id), newMessages[i].id, newMessages[i].date);
+            }
+            document.getElementById("loading").style.visibility = "hidden";
+            messagesContainer.style.visibility = "unset";
+        }
+
+        let serverMessages = [];
+        async function getAllMessagesFromServer(serverId) {
+            if (session.user.id == null)
+                return;
+            await fetch(`/getAllMessagesFromServer/${serverId}`, { method: "GET" })
+                .then(response => response.text())
+                .then(text => JSON.parse(text))
+                .then(function (serverMessages) {
+                    if (serverMessages.length != document.getElementsByClassName("chat").length) {
+                        loadAllMessages(serverMessages);
+                    }
+                });
+        }
+
+        async function loadMessage(newMessage) {
+            displayMessage(newMessage.content, await getUserFromId(newMessage.sender_id), newMessage.id, newMessage.date);
+        }
+
+        async function getNewMessagesFromServer(serverId) {
+            if (session.user.id == null || document.getElementsByClassName("chat").length < 1)
+                return;
+            // Gets the last displayed message ID:
+            let id = document.getElementsByClassName("chat")[document.getElementsByClassName("chat").length - 1].id.replace("message", "") * 1;
+            id++;
+            await fetch(`/getMessagesFromServerStartingWithId/${serverId}/${id}`, { method: "GET" })
+                .then(response => response.text())
+                .then(text => JSON.parse(text))
+                .then(function (serverMessages) {
+                    for (let i = 0; i < serverMessages.length; i++) {
+                        loadMessage(serverMessages[i]);
+                    }
+                });
+        }
+
+        let textFixes = [
+            ["#", "~hashtag~"],
+            ["'", "~apostrophe~"],
+            ["?", "~questionMark~"],
+            ["<", "~leftAngleBracket~"],
+            [">", "~rightAngleBracket~"],
+            ['"', "~doubleQuotes~"],
+            ["&", "~ampersand~"],
+            ["%", "~percent~"],
+            ["/", "~slash~"],
+            [".", "~period~"],
+            ["$", "~dollarSign~"],
+            ["@", "~atSign~"]
+        ];
+
+        async function sendMessage() {
+            if (input.value.length <= 0 || session.user.id < 1)
+                return;
+            let message = input.value;
+            for (let i = 0; i < textFixes.length; i++)
+                message = message.replaceAll(textFixes[i][0], textFixes[i][1]);
+            input.value = "";
+            await fetch(`sendMessage/${currentServer}/${message}/${session.user.id}/${getDateSerial()}`, { method: "POST" })
+                .then(getNewMessagesFromServer(currentServer))
+        }
+
+        // Shows a list of all users in the users section
+        async function displayAllUsers() {
+            await fetch(`/getAllUsers`, { method: "GET" })
+                .then(response => response.text())
+                .then(text => JSON.parse(text))
+                .then(function (users) {
+                    let usersContainer = document.getElementById("usersContainer");
+                    usersContainer.innerHTML = "";
+                    for (let i = 1; i < users.length; i++) {
+                        usersContainer.innerHTML += `
+                        <div class="userDisplay online" id="user${users[i].id}">
+                            <img src="${users[i].profile_picture}">
+                            <p>${users[i].nickname}</p>
+                        </div>`;
+                    }
+                    try {
+                        if (session.user.id != null && session.user.id != undefined)
+                            document.getElementById("user" + session.user.id).style.border = "solid 1px rgba(255,255,255,0.25)";
+                    }
+                    catch {
+                        error(`User ${session.user.id} not found! Please log out and log back in.`);
+                    }
+                });
+        }
+
+        async function displayAllServers() {
+            await fetch(`/getAllServers`, { method: "GET" })
+                .then(response => response.text())
+                .then(text => JSON.parse(text))
+                .then(function (servers) {
+                    let serversContainer = document.getElementById("serversContainer");
+                    serversContainer.innerHTML = "";
+                    for (let i = 0; i < servers.length; i++) {
+                        serversContainer.innerHTML += `
+                        <div class="userDisplay online" id="server${servers[i].id}">
+                            <img src="http://ratlabstudio.com/wp-content/uploads/2023/07/favicon.png">
+                            <p>${servers[i].password}</p>
+                        </div>`;
+                    }
+                    for (let i = 0; i < servers.length; i++) {
+                        document.getElementById("server" + servers[i].id).addEventListener("click", function (event) {
+                            let id = event.target.id;
+                            let serverId = id.replace("server", "");
+                            changeServer(serverId);
+                            displayAllServers();
+                        });
+                    }
+                    try {
+                        document.getElementById("server" + currentServer).style.border = "solid 1px rgba(255,255,255,0.25)";
+                    }
+                    catch {
+                        error(`Server ${currentServer} not found! Please log out and log back in.`);
+                    }
+                });
+        }
+
+        log("App running on *Alpha v2.2 Server*");
+
+        // Frequent Update:
+        setInterval(function () {
+            getNewMessagesFromServer(currentServer);
+        }, 5000);
+
+        // Infrequent Update:
+        setInterval(function () {
+            displayAllUsers();
+            displayAllServers();
+        }, 10000);
+
+        displayAllUsers();
+        displayAllServers();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper</title>
+    <style>
+        html, body {
+            background-color: cadetblue;
+            color: white;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
+            text-align: center;
+        }
+
+        table {
+            margin: auto;
+            border: solid 1px white;
+        }
+
+        td {
+            width: 25px;
+            height: 25px;
+            background-color: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        td:hover {
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Minesweeper</h1>
+    <table id="gameBoard"></table>
+    <script src="script.js"></script>
+</body>
+
+</html>
