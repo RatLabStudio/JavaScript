@@ -33,7 +33,7 @@ function updateCards() {
             let card = e.target
             // This code ensures that you grab the card, not its contents:
             if (!card.id.includes("card")) {
-                for (let j = 0; j < 5; j++) {
+                for (let j = 0; j < 10; j++) {
                     card = card.parentElement;
                     if (card.id.includes("card"))
                         break;
@@ -81,15 +81,15 @@ class card {
         let card = `
         <div id="card${currentCardIndex}" class="card" style="color: ${suit.color};">
             <img id="back${currentCardIndex}" class="back" src="assets/media/back.png"; style="opacity: 0;">
-            <div id="cardContent${currentCardIndex}">
+            <div id="content${currentCardIndex}">
                 <div class="cardCorner" style="left: 1.5vh; top: 1vh;">
                     <p>${value}</p>
-                    <img src="${icon}">
+                    <!--<img src="${icon}">-->
                 </div>
                 <img class="cardCenter" src="${icon}">
                 <div class="cardCorner" style="right: 1.5vh; bottom: 1vh; rotate: 180deg;">
                     <p>${value}</p>
-                    <img src="${icon}">
+                    <!--<img src="${icon}">-->
                 </div>
             </div>
         </div>
@@ -105,24 +105,42 @@ class card {
             this.element.classList.remove("flipped");
             this.element.classList.add("unflipped");
             document.getElementById(`back${this.element.id.replace("card", "")}`).classList.remove("flippedBack");
-            document.getElementById(`cardContent${this.element.id.replace("card", "")}`).classList.remove("unflippedBack");
+            document.getElementById(`content${this.element.id.replace("card", "")}`).classList.remove("unflippedBack");
             document.getElementById(`back${this.element.id.replace("card", "")}`).classList.add("unflippedBack");
-            document.getElementById(`cardContent${this.element.id.replace("card", "")}`).classList.add("flippedBack");
+            document.getElementById(`content${this.element.id.replace("card", "")}`).classList.add("flippedBack");
         }
         else { // Flip
             this.flipped = true;
             this.element.classList.remove("unflipped");
             this.element.classList.add("flipped");
             document.getElementById(`back${this.element.id.replace("card", "")}`).classList.remove("unflippedBack");
-            document.getElementById(`cardContent${this.element.id.replace("card", "")}`).classList.remove("flippedBack");
+            document.getElementById(`content${this.element.id.replace("card", "")}`).classList.remove("flippedBack");
             document.getElementById(`back${this.element.id.replace("card", "")}`).classList.add("flippedBack");
-            document.getElementById(`cardContent${this.element.id.replace("card", "")}`).classList.add("unflippedBack");
+            document.getElementById(`content${this.element.id.replace("card", "")}`).classList.add("unflippedBack");
         }
     }
 }
 
-let c = new card(2, suits.hearts);
+let stacks = [];
+class stack {
+    constructor() {
+        this.index = stacks.length;
+        this.cards = [];
+        this.bounds = {
+            left: cardWidth * 1.5 * (this.index + 1),
+            right: (cardWidth * 1.5 * (this.index + 1)) + cardWidth,
+        }
+        cardContainer.innerHTML += `<div class="blankCardSpace" style="left: ${cardWidth * 1.5 * (this.index + 1)}px;"></div>`;
+        stacks.push(this);
+    }
+}
 
-setInterval(function() {
-    c.flip();
-}, 1000);
+var root = document.querySelector(':root');
+let cardWidth = window.innerWidth / 13;
+let cardHeight = cardWidth * 1.42857143;
+root.style.setProperty('--cardWidth', cardWidth + "px");
+root.style.setProperty('--cardHeight', cardHeight + "px");
+
+for (let i = 0; i < 7; i++)
+    new stack();
+//let c = new card(2, suits.hearts);

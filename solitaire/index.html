@@ -7,6 +7,11 @@
     <title>Solitaire | Rat Lab Studio</title>
     <link rel="icon" href="http://ratlabstudio.com/wp-content/uploads/2023/07/favicon.png">
     <style>
+        :root {
+            --cardWidth: 13.5%;
+            --cardHeight: 18.9%;
+        }
+
         html,
         body {
             background-color: darkslategray;
@@ -25,9 +30,9 @@
             position: absolute;
             background-color: white;
             color: black;
-            width: 20vh;
-            height: 28vh;
-            border: none;
+            width: var(--cardWidth);
+            height: var(--cardHeight);
+            border: solid 0.8vh rgb(204, 204, 204);
             border-radius: 1.5vh;
             box-shadow: 0.5vh 0.5vh 1vh rgba(0, 0, 0, 0.5);
             cursor: pointer;
@@ -50,7 +55,7 @@
         }
 
         .cardCorner img {
-            width: 3vh;
+            width: 2vh;
         }
 
         .cardCenter {
@@ -58,7 +63,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 50%;
+            width: 40%;
             margin: 0;
         }
 
@@ -163,6 +168,15 @@
 
         .unflippedBack {
             animation: unflipBack 0.5s linear forwards;
+        }
+
+        .blankCardSpace {
+            width: var(--cardWidth);
+            height: var(--cardHeight);
+            border: solid 0.8vh rgba(255, 255, 255, 0.25);
+            border-radius: 1.5vh;
+            position: absolute;
+            z-index: -1;
         }
     </style>
 </head>
