@@ -61,15 +61,15 @@
         }
 
         button {
-            font-size: 18px;
-            padding: 5%;
+            font-size: 2vh;
+            padding: 1.5vh;
             border: solid 2px black;
             border-radius: 10px;
             cursor: pointer;
             background-color: var(--cadet);
             color: black;
             font-weight: bold;
-            transition: all 0.2s ease;
+            transition: filter 0.2s ease;
         }
 
         button:hover {
@@ -94,7 +94,7 @@
             height: 30px;
             background-color: var(--evenLighterBackground);
             margin: 0;
-            z-index: 9;
+            z-index: 999999999999999999999;
             cursor: pointer;
             box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
         }
@@ -187,7 +187,7 @@
         /* [[]] */
         a {
             color: var(--pink);
-            transition: all 0.1s ease;
+            transition: filter 0.1s ease;
         }
 
         a:hover {
@@ -202,7 +202,7 @@
             border: none;
             border-radius: 2vh;
             /*box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);*/
-            transition: all 0.3s ease;
+            transition: background-color 0.3s ease;
         }
 
         .chat:hover {
@@ -332,6 +332,17 @@
             border-radius: 3vh;
             text-align: center;
             box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.5);
+            z-index: 99;
+        }
+
+        .pageCover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0%;
+            z-index: 98;
         }
 
         input,
@@ -344,7 +355,7 @@
             border-radius: 6px;
             outline: none;
             box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.25);
-            transition: all 0.3s ease;
+            transition: filter 0.3s ease;
         }
 
         input[type=submit],
@@ -373,12 +384,11 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: background-color 0.2s ease;
         }
 
         .userDisplay:hover {
             background-color: rgba(255, 255, 255, 0.06);
-            ;
         }
 
         .online {
@@ -410,11 +420,62 @@
             padding: 1vh;
         }
 
+        #help {
+            background-color: var(--yellow);
+            position: absolute;
+            bottom: 3vh;
+            left: 15vh;
+            padding: 1vh;
+        }
+
         #loading {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+        }
+
+        iframe {
+            border-radius: 1vh;
+        }
+
+        @keyframes loginAlertAnimation {
+            0% {
+                opacity: 0%;
+            }
+
+            1% {
+                opacity: 100%;
+                transform: translateX(0px);
+            }
+
+            2% {
+                transform: translateX(-10px);
+            }
+
+            4% {
+                transform: translateX(10px);
+            }
+
+            6% {
+                transform: translateX(-10px);
+            }
+
+            8% {
+                transform: translateX(10px);
+            }
+
+            10% {
+                transform: translateX(0px);
+            }
+
+            90% {
+                opacity: 100%;
+            }
+
+            100% {
+                opacity: 0%;
+            }
         }
     </style>
     <script src="https://ratlabstudio.github.io/JavaScript/chat/markdown.js"></script>
@@ -424,14 +485,17 @@
 <body>
     <div id="ribbon">
         <button class="windowButton" style="background-color: var(--red);" onclick="logOut()" title="Log Out"></button>
-        <button class="windowButton" style="background-color: var(--yellow);" title="Nothing to see here!"></button>
-        <button class="windowButton" style="background-color: var(--bluegreen);" title="Shhhhh"></button>
+        <button class="windowButton" style="background-color: var(--yellow);" onclick="displayPanel('helpPanel', true)"
+            title="Help"></button>
+        <button class="windowButton" style="background-color: var(--bluegreen);"
+            onclick="displayPanel('settingsPanel', true)" title="Settings"></button>
         <p style="position: relative; top: -15%; margin-left: 120px; transform: translateY(-50%); font-size: 14px;">
             <a href="https://ratlabstudio.com" style="color: white; text-decoration: none;">Rat
                 Lab Studio 2023</a>
         </p>
     </div>
-    <div id="page" style="filter: blur(10px);">
+    <div id="page">
+        <div id="pageCover" class="pageCover" style="width: 0%;"></div>
         <div id="sidebar">
             <br><br><br>
             <h2 style="margin-bottom: 10px;"><a href="https://ratlabstudio.com" style="color: rgb(108, 224, 228);">Rat
@@ -439,7 +503,7 @@
                     Studio</a></h2>
             <h2 style="font-weight: normal;">Chat App</h2>
             <br>
-            <p>Prototype v2.2</p>
+            <p>Alpha v2.3</p>
             <br><br>
             <h2>Users:</h2>
             <div id="usersContainer">
@@ -449,30 +513,13 @@
                 </div>
             </div>
             <br><br>
-            <h2>Markdown:</h2>
-            <ul style="transform: translateX(-10px);">
-                <li style="color: var(--blue); cursor: pointer;" onclick="input.innerHTML += '#';"># Heading 1</li>
-                <li style="color: var(--bluegreen); cursor: pointer;" onclick="input.innerHTML += '##';">## Heading 2
-                </li>
-                <li style="color: var(--yellow); cursor: pointer;" onclick="input.innerHTML += '###';">### Heading 3
-                </li>
-                <li style="font-style: italic; cursor: pointer;" onclick="input.innerHTML += '*Italic text here*';">*
-                    Italic *</li>
-                <li style="font-weight: bold; cursor: pointer;" onclick="input.innerHTML += '**Bold text here**';">**
-                    Bold **</li>
-                <li style="font-style: italic; font-weight: bold; cursor: pointer;"
-                    onclick="input.innerHTML += '***Bold and Italic text here***';">*** Bold and Italic
-                    ***</li>
-                <li style="color: var(--blue); font-weight: bold; cursor: pointer;"
-                    onclick="input.innerHTML += `<iframe src='https:\/\/ratlabstudio.github.io/JavaScript/ratGui/apps/browser.html' width='720px' height='480px'></iframe>`">
-                    Browser</li>
-            </ul>
             <br>
             <div id="serverDisplay" style="visibility: unset;">
                 <h2>Servers:</h2>
                 <div id="serversContainer"></div>
             </div>
             <button id="logout" onclick="logOut()">Log Out</button>
+            <button id="help" onclick="displayPanel('helpPanel', true)">Help</button>
         </div>
 
         <div id="documentBody">
@@ -497,7 +544,9 @@
         <h1 style="text-align: center;">Welcome! Please Log In Below:</h1>
         <br>
         <p>Accounts are currently request-given only.</p>
-        <br><br><br><br>
+        <br><br>
+        <p id="loginAlert" style="color: tomato; opacity: 0%; visibility: unset;">Incorrect username or password!</p>
+        <br>
         <input id="usernameInput" type="text" name="username" placeholder="Username">
         <br><br>
         <input id="passwordInput" type="password" name="password" placeholder="Password">
@@ -505,14 +554,51 @@
         <button id="loginButton" onclick="loginButton()">Login</button>
     </div>
 
+    <div class="panel" id="helpPanel" style="visibility: hidden;">
+        <h1 style="color: var(--cadet);">Rat Lab Chat Help</h1>
+        <br>
+        <p style="font-size: 2vh;">The <span style="font-weight: bold;">Rat Lab Chat</span> is a private chat
+            application hosted on official <a href="https://ratlabstudio.com">Rat Lab Studio</a>
+            servers, with a database hosted on the <a href="https://cloud.google.com/">Google Cloud</a>.
+            <br><br>The last 20 messages are loaded, and new messages are loaded automatically as they come in.
+        </p>
+        <br>
+        <div style="text-align: left;">
+            <h2>Markdown:</h2>
+            <ul style="transform: translateX(-10px);">
+                <li style="color: var(--blue); cursor: pointer;" onclick="input.innerHTML += '#';"># Heading 1</li>
+                <li style="color: var(--bluegreen); cursor: pointer;" onclick="input.innerHTML += '##';">## Heading 2
+                </li>
+                <li style="color: var(--yellow); cursor: pointer;" onclick="input.innerHTML += '###';">### Heading 3
+                </li>
+                <li style="font-style: italic; cursor: pointer;" onclick="input.innerHTML += '*Italic text here*';">*
+                    Italic *</li>
+                <li style="font-weight: bold; cursor: pointer;" onclick="input.innerHTML += '**Bold text here**';">**
+                    Bold **</li>
+                <li style="font-style: italic; font-weight: bold; cursor: pointer;"
+                    onclick="input.innerHTML += '***Bold and Italic text here***';">*** Bold and Italic
+                    ***</li>
+                <li style="color: var(--blue); font-weight: bold; cursor: pointer;"
+                    onclick="input.innerHTML += `<iframe src='https:\/\/ratlabstudio.github.io/JavaScript/ratGui/apps/browser.html' width='720px' height='480px'></iframe>`">
+                    Browser</li>
+            </ul>
+        </div>
+        <button onclick="displayPanel('helpPanel', false)">Close</button>
+    </div>
+
+    <div class="panel" id="settingsPanel" style="visibility: hidden;">
+        <h1 style="color: var(--cadet);">Rat Lab Chat Settings</h1>
+        <br><br>
+        <p style="font-size: 2.5vh;">Nothing to see here yet!</p>
+        <br><br>
+        <button onclick="displayPanel('settingsPanel', false)">Close</button>
+    </div>
+
     <script>
         const messagesContainer = document.getElementById("messages");
         const input = document.getElementById("textInput");
         input.focus({
             preventScroll: true,
-        });
-        messagesContainer.addEventListener("DOMSubtreeModified", function () { // Scrolls messages to bottom
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
         });
         let currentServer = 1;
 
@@ -551,11 +637,11 @@
             resize();
         });
 
+        displayPanel("loginPanel", true);
         // Logs in automatically if there is a user in localstorage
         if (localStorage.getItem("user") != null) {
             session.user = JSON.parse(localStorage.getItem("user"));
-            document.getElementById("loginPanel").style.visibility = "hidden";
-            document.getElementById("page").style.filter = "";
+            displayPanel("loginPanel", false);
             getAllMessagesFromServer(currentServer);
         }
 
@@ -574,18 +660,35 @@
                 .then(response => response.text())
                 .then(function (response) {
                     if (response.length < 1) {
-                        alert("Incorrect username or password!");
+                        document.getElementById("loginAlert").style.animation = "loginAlertAnimation 3s linear";
+                        setTimeout(function () {
+                            document.getElementById("loginAlert").style.animation = "unset";
+                        }, 3000);
                         return;
                     }
                     let data = JSON.parse(response);
                     session.user = data;
                     localStorage.setItem("user", JSON.stringify(data)); // Stores login info to localstorage
-                    document.getElementById("loginPanel").style.visibility = "hidden";
-                    document.getElementById("page").style.filter = "";
+                    displayPanel("loginPanel", false);
                 });
         }
 
+        function displayPanel(panelId, state) {
+            if (state || state == null) {
+                document.getElementById(panelId).style.visibility = "unset";
+                document.getElementById("page").style.filter = "blur(10px)";
+                document.getElementById("pageCover").style.width = "100%";
+            }
+            else {
+                document.getElementById(panelId).style.visibility = "hidden";
+                document.getElementById("page").style.filter = "";
+                document.getElementById("pageCover").style.width = "0%";
+            }
+        }
+
         function changeServer(serverId) {
+            if (serverId == currentServer)
+                return;
             currentServer = serverId;
             getAllMessagesFromServer(currentServer)
         }
@@ -612,6 +715,8 @@
                 else
                     suffix = "AM";
             }
+            if (hours < 1)
+                hours = 12
 
             let minutes = date.getMinutes();
             if (minutes.toString().length < 2)
@@ -629,27 +734,35 @@
             };
         }
 
-        function getDateSerial() {
+        function getDateSerial() { // 10-7-23-11-43-AM
             let date = getDate();
             return `${date.month}-${date.day}-${date.year}-${date.hours}-${date.minutes}-${date.suffix}`;
         }
 
-        function getDateStringFromSerial(serialDate) {
+        function getDateStringFromSerial(serialDate) { // Serial to 10/7/23 11:43 AM
             let arr = serialDate.split("-");
             return `${arr[0]}/${arr[1]}/${arr[2]} ${arr[3]}:${arr[4]} ${arr[5]}`;
         }
 
-        function getDateString() {
+        function getDateSerialFromString(stringDate) { // String to 10-7-23-11-43-AM
+            let date = stringDate.split(" ")[0].split("/");
+            let time = stringDate.split(" ")[1].split(":");
+            let suffix = stringDate.split(" ")[2];
+            return `${date[0]}-${date[1]}-${date[2]}-${time[0]}-${time[1]}-${suffix}`;
+        }
+
+        function getDateString() {  // Current Date to 10/7/23 11:43 AM
             let d = getDate();
             return `${d.month}/${d.day}/${d.year} ${d.hours}:${d.minutes} ${d.suffix}`;
         }
 
         // Adds a message visually to the page
         function displayMessage(message, user, messageId, date) {
-            date = getDateStringFromSerial(date);
-            if (messages.length > 0 && user.username == messages[messages.length - 1].senderId) {
-                //messages[messages.length - 1].element.innerHTML += "<br><br>" + convertToMarkdown(message);
-                messagesContainer.innerHTML += `
+            try {
+                date = getDateStringFromSerial(date);
+                if (messages.length > 0 && user.username == messages[messages.length - 1].senderId) {
+                    //messages[messages.length - 1].element.innerHTML += "<br><br>" + convertToMarkdown(message);
+                    messagesContainer.innerHTML += `
                 <div class="chat subchat" id="message${messageId}">
                     <div style="margin-bottom: 10px;">
                         <span class="miniName">${user.nickname}</span>
@@ -658,13 +771,9 @@
                     <br>
                     ${convertToMarkdown(message)}
                 </div>`;
-                messages.push({
-                    senderId: user.username,
-                    element: document.getElementById(`message${messages.length}`)
-                });
-            }
-            else {
-                messagesContainer.innerHTML += `
+                }
+                else {
+                    messagesContainer.innerHTML += `
                 <div class="chat" id="message${messageId}">
                     <div class="senderInfo">
                         <img class="senderPicture" src="${user.profile_picture}">
@@ -674,11 +783,17 @@
                     <br>
                     ${convertToMarkdown(message)}
                 </div>`;
+                }
+                messages.push({
+                    senderId: user.username,
+                    date: date,
+                    element: document.getElementById(`message${messages.length}`)
+                });
             }
-            messages.push({
-                senderId: user.username,
-                element: document.getElementById(`message${messages.length}`)
-            });
+            catch {
+                error(`Message from ${user.nickname} was unable to be displayed.`);
+            }
+            messagesContainer.scrollTo(0, messagesContainer.scrollHeight);
         }
 
         // Displays a visual message from the console on the page
@@ -693,6 +808,7 @@
                 <br>
                 ${convertToMarkdown(text)}
             </div>`;
+            messagesContainer.scrollTo(0, messagesContainer.scrollHeight);
         }
 
         function error(text) {
@@ -708,6 +824,7 @@
                 <br><br>
                 ${text}
             </div>`;
+            messagesContainer.scrollTo(0, messagesContainer.scrollHeight);
         }
 
         let keys = [];
@@ -755,7 +872,7 @@
 
         let serverMessages = [];
         async function getAllMessagesFromServer(serverId) {
-            if (session.user.id == null)
+            if (session.user.id == null || serverId == null || serverId == undefined || serverId == "")
                 return;
             await fetch(`/getAllMessagesFromServer/${serverId}`, { method: "GET" })
                 .then(response => response.text())
@@ -864,12 +981,14 @@
                         document.getElementById("server" + currentServer).style.border = "solid 1px rgba(255,255,255,0.25)";
                     }
                     catch {
-                        error(`Server ${currentServer} not found! Please log out and log back in.`);
+                        currentServer = 1;
+                        loadAllMessages();
+                        //error(`Server ${currentServer} not found! Please log out and log back in.`);
                     }
                 });
         }
 
-        log("App running on *Alpha v2.2 Server*");
+        log("App running on *Alpha v2.3 Server*");
 
         // Frequent Update:
         setInterval(function () {
@@ -878,12 +997,14 @@
 
         // Infrequent Update:
         setInterval(function () {
-            displayAllUsers();
-            displayAllServers();
+            updateInfo();
         }, 10000);
 
-        displayAllUsers();
-        displayAllServers();
+        function updateInfo() {
+            displayAllUsers();
+            displayAllServers();
+        }
+        updateInfo();
     </script>
 </body>
 
