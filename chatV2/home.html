@@ -7,7 +7,7 @@
     <meta name="viewport"
         content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Chat | Rat Lab Studio</title>
-    <link rel="favicon" href="http://ratlabstudio.com/wp-content/uploads/2023/07/favicon.png">
+    <link rel="icon" href="http://ratlabstudio.com/wp-content/uploads/2023/07/favicon.png">
     <style>
         :root {
             --cadet: rgb(95, 204, 207);
@@ -278,7 +278,7 @@
 
         #inputArea {
             display: flex;
-            margin-top: 40px;
+            margin-top: 3vh;
         }
 
         #textInput {
@@ -415,16 +415,13 @@
         #logout {
             background-color: var(--red);
             position: absolute;
-            bottom: 3vh;
-            left: 3vh;
+            left: 3.5vh;
+            bottom: 3.5vh;
             padding: 1vh;
         }
 
         #help {
             background-color: var(--yellow);
-            position: absolute;
-            bottom: 3vh;
-            left: 15vh;
             padding: 1vh;
         }
 
@@ -518,8 +515,9 @@
                 <h2>Servers:</h2>
                 <div id="serversContainer"></div>
             </div>
+            <br><br>
             <button id="logout" onclick="logOut()">Log Out</button>
-            <button id="help" onclick="displayPanel('helpPanel', true)">Help</button>
+            <!--<button id="help" onclick="displayPanel('helpPanel', true)">Help</button>-->
         </div>
 
         <div id="documentBody">
