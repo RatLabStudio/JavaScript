@@ -96,12 +96,15 @@ let winningSpaces = [];
 
 // Checks if any player has won the game
 function checkForWin() {
+    let full = true;
     for (let i = 0; i < spaces.length; i++) {
         let y = spaces[i].id[0] * 1;
         let x = spaces[i].id[2] * 1;
 
-        if (spaces[i].classList.length <= 0)
+        if (spaces[i].classList.length <= 0) {
+            full = false;
             continue;
+        }
 
         // Horizontal:
         if (spaces[i].id[2] * 1 < boardWidth - (amountToWin - 1)) {
@@ -110,14 +113,14 @@ function checkForWin() {
             for (let j = 1; j < amountToWin; j++) {
                 if (spaces[i].classList[0] == spaces[convert2Dto1D(y, x + j)].classList[0]) {
                     count++;
-                    winningSpaces.push(spaces[convert2Dto1D(y + j, x - j)]);
+                    winningSpaces.push(spaces[convert2Dto1D(y, x + j)]);
                 }
             }
             if (count >= amountToWin) {
                 winner = spaces[i].classList[0];
-                win();
-                console.log("Horizontal");
-                console.log(winningSpaces);
+                win(winningSpaces);
+                //console.log("Horizontal");
+                //console.log(winningSpaces);
                 return;
             }
         }
@@ -129,33 +132,33 @@ function checkForWin() {
             for (let j = 1; j < amountToWin; j++) {
                 if (spaces[i].classList[0] == spaces[convert2Dto1D(y + j, x)].classList[0]) {
                     count++;
-                    winningSpaces.push(spaces[convert2Dto1D(y + j, x - j)]);
+                    winningSpaces.push(spaces[convert2Dto1D(y + j, x)]);
                 }
             }
             if (count >= amountToWin) {
                 winner = spaces[i].classList[0];
-                win();
-                console.log("Vertical");
-                console.log(winningSpaces);
+                win(winningSpaces);
+                //console.log("Vertical");
+                //console.log(winningSpaces);
                 return;
             }
         }
 
         // Diagonal Negative Slope
-        if (spaces[i].id[2] * 1 <= boardWidth - (amountToWin - 1) && spaces[i].id[0] < boardHeight - (amountToWin - 1)) {
+        if (spaces[i].id[2] * 1 < boardWidth - (amountToWin - 1) && spaces[i].id[0] < boardHeight - (amountToWin - 1)) {
             let count = 1;
             winningSpaces = [spaces[convert2Dto1D(y, x)]];
             for (let j = 1; j < amountToWin; j++) {
                 if (spaces[i].classList[0] == spaces[convert2Dto1D(y + j, x + j)].classList[0]) {
                     count++;
-                    winningSpaces.push(spaces[convert2Dto1D(y + j, x - j)]);
+                    winningSpaces.push(spaces[convert2Dto1D(y + j, x + j)]);
                 }
             }
             if (count >= amountToWin) {
                 winner = spaces[i].classList[0];
-                win();
-                console.log("Diagonal Negative Slope");
-                console.log(winningSpaces);
+                win(winningSpaces);
+                //console.log("Diagonal Negative Slope");
+                //console.log(winningSpaces);
                 return;
             }
         }
@@ -172,18 +175,22 @@ function checkForWin() {
             }
             if (count >= amountToWin) {
                 winner = spaces[i].classList[0];
-                win();
-                console.log("Diagonal Positive Slope");
-                console.log(winningSpaces);
+                win(winningSpaces);
+                //console.log("Diagonal Positive Slope");
+                //console.log(winningSpaces);
                 return;
             }
         }
     }
 
+    if (full) {
+        winnerDisplay.style.color = "white";
+        document.getElementById("winnerPanel").style.visibility = "unset";
+    }
 }
 
-function win() {
-    if (winner != undefined && winner != null && winner != "") {
+function win(winningSpaces) {
+    if (winner != undefined && winner != null && winner != "" && winningSpaces.length > 0) {
         let winnerDisplay = document.getElementById("winnerDisplay");
         winnerDisplay.innerHTML = winner[0].toUpperCase() + winner.substring(1) + " Wins!";
         if (winner == "red")
@@ -191,6 +198,8 @@ function win() {
         else if (winner == "yellow")
             winnerDisplay.style.color = "gold";
         document.getElementById("winnerPanel").style.visibility = "unset";
+        for (let i = 0; i < winningSpaces.length; i++)
+            document.getElementById("coin" + winningSpaces[i].id).innerHTML += `<div class="shimmer"></div>`;
     }
 }
 
@@ -233,7 +242,7 @@ function resetBoard() {
             }
         }
     }
-    sleep(boardWidth * 300).then(() => {
+    sleep(boardWidth * 400).then(() => {
         createGameBoard(); // Recreates the game board
     });
 }
