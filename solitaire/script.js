@@ -143,4 +143,5 @@ root.style.setProperty('--cardHeight', cardHeight + "px");
 
 for (let i = 0; i < 7; i++)
     new stack();
-//let c = new card(2, suits.hearts);
+let c = new card(2, suits.hearts);
+c.flip();

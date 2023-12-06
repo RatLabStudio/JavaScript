@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048 | Rat Lab Studio</title>
+    <style>
+        html,
+        body {
+            background-color: rgb(8, 55, 88);
+            color: white;
+            text-align: center;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+
+        h1 {
+            text-decoration: underline;
+            margin: 0;
+            margin-top: 4vh;
+        }
+
+        h2 {
+            margin: 0;
+            margin-top: 1vh;
+            font-size: 1.75vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        table {
+            margin: auto;
+        }
+
+        td {
+            background-color: rgba(255, 255, 255, 0.25);
+            width: 10vh;
+            height: 10vh;
+            border: solid 0px white;
+            border-radius: 1vh;
+            padding: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .tile {
+            margin: auto;
+            width: 90%;
+            height: 90%;
+            background-color: rgb(222, 230, 173);
+            border-radius: inherit;
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+        }
+
+        .tile p {
+            font-size: 4vh;
+            color: black;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>2048</h1>
+    <h2><a href="https://ratlabstudio.com">Rat Lab Studio 2023</a></h2>
+    <br><br>
+    <table id="gameBoard" cellSpacing="4vh"></table>
+
+    <script>
+        const gameBoard = document.getElementById("gameBoard");
+        let boardSize = 4;
+        let tileCode = `<div class="tile"><p>2</p></div>`;
+        for (let i = 0; i < boardSize; i++) {
+            let temp = `<tr>`;
+            for (let j = 0; j < boardSize; j++) {
+                temp += `<td id="${i},${j}" class="space"></td>`;
+            }
+            temp += `</tr>`;
+            gameBoard.innerHTML += temp;
+        }
+        let spaces = document.getElementsByClassName("space");
+
+        function addTile() {
+            let emptySpaces = []
+            for (let i = 0; i < spaces.length; i++) {
+                if (spaces[i].innerHTML == "")
+                    emptySpaces.push(spaces[i]);
+            }
+            if (emptySpaces.length < 1) {
+                lose();
+                return;
+            }
+
+            let index = Math.floor(Math.random() * emptySpaces.length);
+            emptySpaces[index].innerHTML = tileCode;
+        }
+
+        function lose() {
+
+        }
+
+        function gravityShift(dir) {
+            for (let i = 0; i < boardSize; i++) {
+                if (dir == "down") {
+                    for (let j = spaces.length - 1; j >= 0; j--) {
+                        let idInfo = spaces[j].id.split(",");
+                        let position = {
+                            row: idInfo[0] * 1,
+                            column: idInfo[1] * 1
+                        };
+                        if (position.row >= boardSize - 1)
+                            continue;
+                        let spaceBeneath = document.getElementById(`${position.row + 1},${position.column}`);
+                        if (spaceBeneath.innerHTML == "") {
+                            spaceBeneath.innerHTML = spaces[j].innerHTML;
+                            spaces[j].innerHTML = "";
+                        }
+                        else if (spaceBeneath.innerHTML == spaces[j].innerHTML) {
+                            // Combine here
+                        }
+                    }
+                }
+            }
+        }
+
+        document.addEventListener("keydown", function (e) {
+            let k = e.key.toLowerCase();
+
+            if (k == "w") {
+                addTile();
+            }
+            else if (k == "s") {
+                gravityShift("down");
+            }
+        });
+    </script>
+</body>
+
+</html>
