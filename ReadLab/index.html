@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Lab | Rat Lab Studio</title>
+    <link rel="icon" href="https://ratlabstudio.github.io/JavaScript/resources/assets/favicon.png">
+    <style>
+        :root {
+            --red: #ed8673;
+            --yellow: #ffdd47;
+            --blue: #8cffe6;
+        }
+
+        html,
+        body {
+            background-color: rgb(66, 66, 66);
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        #ribbon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.07);
+            margin: 0;
+            z-index: 9;
+            cursor: pointer;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+            text-align: left;
+        }
+
+        .windowButton {
+            width: 16px;
+            height: 16px;
+            padding: 0;
+            border: none;
+            position: relative;
+            top: 50%;
+            margin-left: 10px;
+            transform: translateY(-50%);
+        }
+
+        h1 {
+            color: var(--blue);
+            text-decoration: underline;
+            margin-bottom: 1.5vh;
+        }
+
+        h2 {
+            color: var(--yellow);
+        }
+
+        a {
+            font-size: 2vh;
+            text-decoration: none;
+            color: white;
+            margin-top: 0;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--red);
+        }
+
+        .textArea {
+            width: 70%;
+            height: 90%;
+            margin: auto;
+            text-align: left;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 0.5vh;
+            color: white;
+            cursor: text;
+            outline: none;
+            overflow: scroll;
+            font-size: 2.5vh;
+            padding: 2vh;
+        }
+
+        button {
+            background-color: var(--blue);
+            color: black;
+            font-size: 2vh;
+            padding: 1vh;
+            border: solid 2px black;
+            border-radius: 1vh;
+            cursor: pointer;
+            transition: filter 0.2s ease;
+        }
+
+        button:hover {
+            filter: brightness(110%);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="ribbon">
+        <button class="windowButton" style="background-color: var(--red);"></button>
+        <button class="windowButton" style="background-color: var(--yellow);"></button>
+        <button class="windowButton" style="background-color: var(--blue);"></button>
+        <p
+            style="position: relative; top: -65%; margin-left: 120px; transform: translateY(-50%); font-size: 14px; color: white;">
+            Rat
+            Lab Studio 2024</p>
+    </div>
+    <br>
+    <h1 style="margin-top: 4vh;">Read Lab - Easier Text Readability</h1>
+    <a href="https://ratlabstudio.com">Rat Lab Studio 2024</a>
+    <br>
+    <h2 style="margin-top: 4vh;">Input your text below:</h2>
+    <div class="textArea" id="textAreaEditor" contenteditable="true" style="visibility: unset;">
+        The Rat Lab Studio is a programming collaboration space where we will create fun and interesting games and
+        applications. In fact, this website itself is a project of mine, it is constantly updated and new features are
+        added all the time.
+    </div>
+    <br><br>
+    <button onclick="applyFormatting();">Apply Formatting</button>
+    <button onclick="removeFormatting();" style="background-color: var(--yellow);">Remove Formatting</button>
+    <button onclick="clearEditor();" style="background-color: var(--red);">Clear</button>
+    <script>
+        const editor = document.getElementById("textAreaEditor");
+        function applyFormatting() {
+            let rawText = getRawText();
+            let words = rawText.split(" ");
+            let tempHtml = ``;
+            for (let i = 0; i < words.length; i++) {
+                let halfPoint = Math.floor(words[i].length / 2);
+                tempHtml += `<span class="text firstHalf">${words[i].substring(0, halfPoint)}</span>`
+                let opacity = 80;
+                for (let j = halfPoint; j < words[i].length; j++) {
+                    let added = "";
+                    if (j >= words[i].length - 1)
+                        added = " ";
+                    tempHtml += `<span class="text" style="filter: opacity(${opacity}%);">${words[i][j]}${added}</span>`;
+                    if (opacity > 40)
+                        opacity -= 20;
+                }
+            }
+            editor.innerHTML = tempHtml;
+        }
+
+        function removeTags(str) {
+            str = str.replace("<br>", " ");
+            while (str.indexOf("<") > -1 && str.indexOf(">") > -1)
+                str = str.replace(str.substring(str.indexOf("<"), str.indexOf(">") + 1), "");
+            return str;
+        }
+
+        function getRawText() {
+            let texts = document.getElementsByClassName("text");
+            if (texts.length <= 0)
+                return editor.innerHTML;
+            let fullText = "";
+            for (let i = 0; i < texts.length; i++)
+                fullText += texts[i].innerHTML;
+            return removeTags(fullText);
+        }
+
+        function removeFormatting() {
+            editor.innerHTML = getRawText();
+        }
+
+        function clearEditor() {
+            editor.innerHTML = "";
+        }
+    </script>
+</body>
+
+</html>
