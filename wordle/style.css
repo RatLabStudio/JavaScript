@@ -1,0 +1,109 @@
+body {
+    font-family: sans-serif;
+    background-color: rgb(99, 148, 255);
+    color: rgb(214, 214, 214);
+    font-size: 32px;
+    text-align: center;
+    touch-action: manipulation; /* Disables double-tap zoom feature */
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    font-size: 28px;
+    color: black;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+a {
+    -webkit-appearance: none;
+    text-decoration: none;
+    color: black;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: aliceblue;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    border: 1px;
+}
+
+th {
+    height: 40px;
+    width: 40px;
+    font-family: sans-serif;
+    font-size: 20px;
+    color: black;
+    background-color: rgb(79, 118, 203);
+    border-color: aliceblue;
+    border-width: 1px;
+    border-radius: 4px;
+}
+
+#keysDiv {
+    font-size: 0px; /* So that the keys are vertically spaced evenly */
+}
+
+.kb {
+    -webkit-appearance: none;
+    width: 28px;
+    height: 40px;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    color: black;
+    background-color: aliceblue;
+    border-width: 1px;
+    border-radius: 3px;
+    margin: 1px;
+}
+
+.kbLarger {
+    -webkit-appearance: none;
+    width: 44px;
+    height: 40px;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    color: black;
+    background-color: aliceblue;
+    border-width: 1px;
+    border-radius: 4px;
+    margin: 1px;
+}
+
+.header {
+    background-color: rgb(79, 118, 203);
+    margin-bottom: 16px;
+    padding: 5px;
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(0);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translate(.5em);
+        box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    10%,
+    30%,
+    50% {
+        transform: translate(-.2em);
+    }
+
+    70%,
+    100% {
+        transform: translate(0);
+    }
+}
