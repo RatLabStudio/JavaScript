@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess | Rat Lab Studio</title>
+    <link rel="icon" href="https://ratlabstudio.github.io/JavaScript/resources/assets/favicon.png">
+    <script src="classes/space.js"></script>
+    <script src="classes/piece.js"></script>
+    <style>
+        :root {
+            --blue: rgb(57, 238, 244);
+        }
+
+        @font-face {
+            font-family: 'merida';
+            src: url('pieces/merida.ttf');
+        }
+
+        html,
+        body {
+            background-color: rgb(43, 43, 43);
+            color: white;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 4vh;
+            margin: 1vh;
+            margin-top: 3vh;
+            color: var(--blue);
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.75vh;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: rgb(255, 213, 88);
+        }
+
+        canvas {
+            background-color: white;
+            border: solid 4px rgba(255, 255, 255, 0.5);
+            width: 45%;
+            min-width: 600px;
+        }
+
+        .info {
+            margin: 0;
+            font-family: merida;
+            position: absolute;
+            font-size: 4vh;
+            left: 10%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Rat Lab Chess</h1>
+    <a href="https://ratlabstudio.com">Rat Lab Studio 2024</a>
+    <h2 class="info" id="info">info</h2>
+    <br><br><br>
+    <canvas id="canvas" width="1024px" height="1024px"></canvas>
+    <script src="code/variables.js"></script>
+    <script src="code/setup.js"></script>
+    <script src="code/drawing.js"></script>
+    <script src="code/interact.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
