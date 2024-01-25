@@ -47,8 +47,9 @@
         canvas {
             background-color: white;
             border: solid 4px rgba(255, 255, 255, 0.5);
-            width: 45%;
-            min-width: 600px;
+            border-radius: 1vh;
+            width: 60%;
+            min-width: 350px;
         }
 
         .info {
@@ -56,7 +57,34 @@
             font-family: merida;
             position: absolute;
             font-size: 4vh;
-            left: 10%;
+            top: 5%;
+            left: 5%;
+        }
+
+        button {
+            background-color: cadetblue;
+            font-size: 2.5vh;
+            padding: 1vh 2vh 1vh 2vh;
+            border: solid 1px black;
+            border-radius: 1vh;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+            background-color: rgb(111, 195, 198);
+        }
+
+        #resetButton {
+            margin: auto;
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            background-color: rgb(226, 131, 114);
+        }
+
+        #resetButton:hover {
+            background-color: rgb(244, 112, 88);
         }
     </style>
 </head>
@@ -66,10 +94,16 @@
     <a href="https://ratlabstudio.com">Rat Lab Studio 2024</a>
     <h2 class="info" id="info">info</h2>
     <br><br><br>
-    <canvas id="canvas" width="1024px" height="1024px"></canvas>
+    <canvas id="canvas" width="1500px" height="1500px"></canvas>
+    <br><br><br>
+    <div style="text-align: center;">
+        <button id="resetButton" onclick="resetBoard();">Reset</button>
+    </div>
+
     <script src="code/variables.js"></script>
     <script src="code/setup.js"></script>
     <script src="code/drawing.js"></script>
+    <script src="code/moveLogic.js"></script>
     <script src="code/interact.js"></script>
     <script src="script.js"></script>
 </body>

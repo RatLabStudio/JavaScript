@@ -19,8 +19,24 @@ canvas.addEventListener("mousedown", function (event) {
     redraw();
 });
 document.addEventListener("mouseup", function (event) {
-    if (currentPiece != null)
-        currentPiece.place();
+    if (currentPiece != null) {
+        if (currentPiece.color) {
+            if (turn.toLowerCase() == "white")
+                currentPiece.putBack();
+            else {
+                currentPiece.place();
+                switchTurn();
+            }
+        }
+        else {
+            if (turn.toLowerCase() == "black")
+                currentPiece.putBack();
+            else {
+                currentPiece.place();
+                switchTurn();
+            }
+        }
+    }
     currentPiece = null;
     canvas.style.cursor = "default";
 });
@@ -44,8 +60,11 @@ function getPieceAtCoordinates(x, y) {
 
 canvas.addEventListener("mousemove", function (event) {
     let mousePos = getMousePos(canvas, event);
-    if (getPieceAtCoordinates(mousePos.x, mousePos.y) != undefined && currentPiece == null)
+    hoverSpace = null;
+    if (getPieceAtCoordinates(mousePos.x, mousePos.y) != undefined && currentPiece == null) {
         canvas.style.cursor = "pointer";
+        hoverSpace = getPieceAtCoordinates(mousePos.x, mousePos.y);
+    }
     else if (currentPiece == null)
         canvas.style.cursor = "default";
     if (currentPiece == null)

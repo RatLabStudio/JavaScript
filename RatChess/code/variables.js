@@ -30,7 +30,10 @@ let pieceColors = {
 
 let board = []; // Contains all the pieces in the board
 let currentPiece = null; // Stores the object of the currently held piece
+let hoverSpace = null; // Stores what space the mouse is currently hovering over
 
 // The order of the pieces in the back row for each person
 let boardSetup = ["rook", "knight", "bishop", "queen", "king", "bishop", "knight", "rook"]; // Order of back row of pieces for each player
 let piecesInBoard = []; // All pieces currently on the board
+
+let turn = "White"; // Stores the current player turn, white goes first

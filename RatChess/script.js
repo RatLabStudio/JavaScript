@@ -7,8 +7,20 @@ setInterval(function () {
             ${currentPiece.type}
             <br>
             <span style="font-family: sans-serif; font-weight: normal; font-size: 3vh;">
-            ${spaceLetterOrder[currentPiece.x].toUpperCase()}${Math.abs((currentPiece.y * 1) - boardSize)}
+                ${spaceLetterOrder[currentPiece.x].toUpperCase()}${Math.abs((currentPiece.y * 1) - boardSize)}
             </span>
+            <h2 style="font-family: sans-serif; font-size: 2vh;">${turn}'s Turn</h2>
+        `;
+    else if (hoverSpace != null)
+        document.getElementById("info").innerHTML = `
+            <span style="filter: opacity(50%);">
+                ${hoverSpace.type}
+                <br>
+                <span style="font-family: sans-serif; font-weight: normal; font-size: 3vh;">
+                    ${spaceLetterOrder[hoverSpace.x].toUpperCase()}${Math.abs((hoverSpace.y * 1) - boardSize)}
+                </span>
+            </span>
+            <h2 style="font-family: sans-serif; font-size: 2vh;">${turn}'s Turn</h2>
         `;
     else
         document.getElementById("info").innerHTML = `
@@ -19,10 +31,13 @@ setInterval(function () {
                     A0
                 </span>
             </span>
+            <h2 style="font-family: sans-serif; font-size: 2vh;">${turn}'s Turn</h2>
         `;
     redraw();
 }, 1);
 
+if (window.innerWidth < 500)
+    alert("Warning: This page is built with a desktop in mind. Using it on a phone will likely cause it to not function properly!")
 
 // Start of program:
 ctx.fillStyle = "black";

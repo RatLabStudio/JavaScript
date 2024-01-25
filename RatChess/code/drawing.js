@@ -20,7 +20,7 @@ function drawLabels() {
         let offset = 0;
         if (i == boardSize - 1)
             offset = 24;
-        ctx.fillText(`${i + 1}`, 5 + offset, (i + 1) * spaceWidth - 5)
+        ctx.fillText(`${boardSize - i}`, 5 + offset, (i + 1) * spaceWidth - 5)
         ctx.fillText(`${spaceLetterOrder[i].toUpperCase()}`, i * spaceWidth + 5, canvas.height - 5);
     }
 }
